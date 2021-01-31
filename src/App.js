@@ -59,7 +59,7 @@ function App() {
             </div>
           </div>
         </section>
-        {/* <a id="git"></a> */}
+        <a id="git" className="hidden-anchor">Anchor</a>
         <h2>системы контроля версий и git</h2>
         <section>
           <div className="article">
