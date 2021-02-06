@@ -18,6 +18,10 @@ $middleScreenBreakpoint: 768px;
   font-size: 0;
 }
 
+code {
+  overflow-wrap: break-word;
+}
+
 @media (min-width: $middleScreenBreakpoint) {
   section:nth-child(odd) {
     .article {
@@ -217,7 +221,6 @@ html {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            overflow: hidden;
 
             .article-block__post {
               width: 32%;

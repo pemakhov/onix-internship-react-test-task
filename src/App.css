@@ -15,6 +15,10 @@
   font-size: 0;
 }
 
+code {
+  overflow-wrap: break-word;
+}
+
 @media (min-width: 768px) {
   section:nth-child(odd) .article {
     flex-direction: row-reverse;
@@ -193,7 +197,6 @@ html body #root main section .article-block {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  overflow: hidden;
 }
 html body #root main section .article-block .article-block__post {
   width: 32%;
