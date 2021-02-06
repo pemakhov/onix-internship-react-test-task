@@ -2,7 +2,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="root">
+    <>
       <header>
         <div className="container">
           <div id="logo">шаблон.</div>
@@ -33,7 +33,6 @@ function App() {
           <button>ничего не случится</button>
         </div>
       </header>
-
       <main>
         <section>
           <h2>краткое описание проекта</h2>
@@ -386,7 +385,7 @@ function App() {
               </p>
             </div>
           </div>
-        </section>
+        </section> 
       </main>
 
       <footer>
@@ -412,7 +411,7 @@ function App() {
           <p>права никем не защищены</p>
         </div>
       </footer>
-    </div>
+    </>
   );
 }
 

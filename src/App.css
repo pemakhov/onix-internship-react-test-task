@@ -1,8 +1,4 @@
 @charset "UTF-8";
-html {
-  scroll-behavior: smooth;
-}
-
 .structure {
   font-family: monospace;
   white-space: pre;
@@ -24,55 +20,71 @@ html {
     flex-direction: row-reverse;
   }
 }
-.root {
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  font-size: 16px;
+  min-width: 250px;
+}
+html body {
+  margin: 0;
+  padding: 0;
+}
+html body #root {
   max-width: 1149px;
-  display: flex;
-  flex-direction: column;
   margin: 0 auto;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
 }
-.root header .container {
-  margin: 65px 0 70px;
+html body #root header .container {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 65px 0 70px;
 }
-.root header .container #logo {
+html body #root header .container #logo {
   font-weight: 700;
   font-size: 1.8rem;
 }
-.root header .container nav ul {
+html body #root header .container nav ul {
   display: flex;
+  flex-wrap: wrap;
+  padding-inline-start: 0;
 }
-.root header .container nav ul li {
+html body #root header .container nav ul li {
   list-style-type: none;
   margin-left: 3rem;
 }
-.root header .container nav ul li a {
-  font-size: 1.1rem;
+@media (max-width: 768px) {
+  html body #root header .container nav ul li {
+    margin: 0 1rem;
+  }
+}
+html body #root header .container nav ul li a {
+  font-size: 1.2rem;
   color: #656565;
   text-decoration: none;
 }
-.root header .container nav ul li a:hover {
+html body #root header .container nav ul li a:hover {
   text-decoration: underline;
 }
-.root header .header-content {
+html body #root header .header-content {
   background-color: #ffe1bd;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.root header .header-content h2 {
+html body #root header .header-content h2 {
   font-size: 2rem;
   margin-top: 138px;
   margin-bottom: 0;
 }
-.root header .header-content h3 {
+html body #root header .header-content h3 {
   font-weight: 400;
   font-size: 1.4rem;
   margin: 0;
 }
-.root header .header-content button {
+html body #root header .header-content button {
   cursor: pointer;
   padding: 0 30px;
   text-decoration: none;
@@ -85,130 +97,144 @@ html {
   font-weight: 400;
   font-size: 1.1rem;
 }
-.root header .header-content button:hover {
+html body #root header .header-content button:hover {
   background-color: #222222;
 }
-.root header .header-content button:active {
+html body #root header .header-content button:active {
   background-color: #444444;
   border-radius: 25px;
   border: none;
   outline: 0;
 }
-.root header .header-content button:focus {
+html body #root header .header-content button:focus {
   outline: 0;
 }
-.root main h2 {
+html body #root main h2 {
   font-weight: 100;
   font-size: 50px;
   text-align: center;
   margin: 8rem auto 4rem;
 }
-.root main section {
-  margin: 6rem 0;
-}
-.root main section .article {
-  display: flex;
-  justify-content: space-between;
-}
 @media (max-width: 768px) {
-  .root main section .article {
-    flex-direction: column;
+  html body #root main h2 {
+    margin: 4rem auto 2rem;
   }
 }
-.root main section .article .article__image {
-  width: 46%;
+html body #root main section {
+  margin: 6rem 0;
+}
+@media (max-width: 768px) {
+  html body #root main section {
+    margin: 1rem 0;
+  }
+}
+html body #root main section .article {
+  display: flex;
+}
+@media (max-width: 768px) {
+  html body #root main section .article {
+    flex-direction: column;
+    margin: 0;
+  }
+}
+html body #root main section .article .article__image {
+  width: 50%;
   height: 560px;
   background-color: #ffe1bd;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 @media (max-width: 768px) {
-  .root main section .article .article__image {
-    width: 100%;
+  html body #root main section .article .article__image {
+    width: auto;
+    height: auto;
   }
 }
-.root main section .article .article__image p {
+html body #root main section .article .article__image p {
   font-weight: 700;
-  font-size: 4rem;
+  font-size: 3.5rem;
   text-align: center;
+  overflow-wrap: anywhere;
   color: black;
 }
-.root main section .article .article__image p:before {
-  font-size: 4rem;
+html body #root main section .article .article__image p:before {
+  font-size: 3.5rem;
   content: "«";
 }
-.root main section .article .article__image p:after {
-  font-size: 4rem;
+html body #root main section .article .article__image p:after {
+  font-size: 3.5rem;
   content: "»";
 }
-.root main section .article .article__content {
-  width: 46%;
+html body #root main section .article .article__content {
+  width: 50%;
   padding: 1rem;
 }
 @media (max-width: 768px) {
-  .root main section .article .article__content {
-    width: 100%;
+  html body #root main section .article .article__content {
+    width: auto;
   }
 }
-.root main section h3 {
+html body #root main section h3 {
   font-weight: 300;
   font-size: 1.8rem;
   line-height: 2.5rem;
 }
-.root main section h3 strong {
+html body #root main section h3 strong {
   font-weight: 700;
   font-size: 3.8rem;
 }
-.root main section p {
+html body #root main section p {
   color: #656565;
   font-size: 1rem;
 }
-.root main section .article-block {
+html body #root main section .article-block {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  overflow: hidden;
 }
-.root main section .article-block .article-block__post {
-  width: 30%;
+html body #root main section .article-block .article-block__post {
+  width: 32%;
 }
 @media (max-width: 768px) {
-  .root main section .article-block .article-block__post {
-    width: 100%;
+  html body #root main section .article-block .article-block__post {
+    width: auto;
+    padding: 1rem;
   }
 }
-.root footer h2 {
+html body #root footer h2 {
   font-weight: 100;
   font-size: 50px;
   text-align: center;
   padding: 4rem;
 }
-.root footer .info {
+html body #root footer .info {
   background-color: black;
   color: white;
   padding: 2rem;
 }
-.root footer .info .info__container {
+html body #root footer .info .info__container {
   font-size: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  pudding: 3rem;
 }
-.root footer .info .info__container a, .root footer .info .info__container a:visited {
+html body #root footer .info .info__container a,
+html body #root footer .info .info__container a:visited {
   color: white;
 }
-.root footer .copyright {
+html body #root footer .copyright {
   padding: 2rem 0;
   font-size: 1.5;
   background-color: white;
 }
-.root footer .copyright p {
+html body #root footer .copyright p {
   color: black;
   text-align: center;
 }
-.root footer .copyright p strong {
+html body #root footer .copyright p strong {
   font-weight: 700;
 }
 
