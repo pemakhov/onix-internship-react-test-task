@@ -15,6 +15,104 @@ function App() {
   const headerButtonCaption = "в дизайне была кнопка";
 
   /*
+   * Project Information
+   */
+  const stages = [
+    {
+      topic: "тестовое задание",
+      goal: "продемонстрировать знания и умения, необходимые для интернатуры",
+      task: (
+        <>
+          <p>Выбрать шаблон и сверстать веб-страницу.</p>
+          <p>
+            Наполнить страницу содержимым: описанием базовых понятий,
+            знания которых необходимы для прохождения интернатуры.
+          </p>
+        </>
+      ),
+    },
+    {
+      topic: "основы создания проектов на react",
+      goal:
+        "ознакомится с node и npm, получить базовые понятия о том что такое react," +
+        " развернуть первый проект с помощью react cli",
+      task: (
+        <>
+          <p>1. Установить node.js и npm</p>
+          <p>2. Создать новый проект с помощью утилиты create react app</p>
+          <p>3. Перенести сверстанную страницу в react компоненту</p>
+        </>
+      ),
+    },
+    {
+      topic: "основы js, переменные, операторы, условия",
+      goal: "ознакомится с понятием переменной",
+      task: (
+        <p>
+          Выделить потенциально динамический контент на странице (имена, даты,
+          тексты) и перенести его в переменные. Переменные должны быть
+          константами в компоненте или в state.
+        </p>
+      ),
+    },
+    {
+      topic: "основы js, массивы",
+      goal: "научиться работать с массивами",
+      task: (
+        <>
+          <p>
+            На странице создать таблицу с биографией по годам. Данные записать в
+            массив. Сделать сортировку данных по клику (без помощи и с помощью
+            функций сортировки). Добавить две кнопки, по клику на первую
+            добавить новый элемент массива, и удалить его по клику на вторую.
+            Результаты выводить в консоль с помощью console.log.
+          </p>
+        </>
+      ),
+    },
+  ];
+
+  const projectInfoHeader = "информация о текущем этапе";
+  const currentDay = new Date().getDay();
+  const meetingDayNumber = 6;
+  const daysToMeeting = meetingDayNumber - currentDay;
+  let daysWordWithProperEnding = "";
+
+  if (daysToMeeting > 4) {
+    daysWordWithProperEnding = "дней";
+  } else if (daysToMeeting > 1) {
+    daysWordWithProperEnding = "дня";
+  } else {
+    daysWordWithProperEnding = "день";
+  }
+
+  let projectInfoQuote = `До встречи ${daysToMeeting} ${daysWordWithProperEnding}`;
+
+  const meetingToday = daysToMeeting === 0;
+
+  if (meetingToday) {
+    projectInfoQuote = "Встреча сегодня";
+  }
+
+  const currentStageNumber = 2;
+  const currentStage = stages[currentStageNumber];
+
+  const projectInfoArticleHeader = (
+    <>
+      этап <strong>№{currentStageNumber}</strong>
+    </>
+  );
+
+  const projectInfoArticle = (
+    <>
+      <h4>Тема:</h4>
+      <p>{currentStage.topic}</p>
+      <h4>Задание:</h4>
+      {currentStage.task}
+    </>
+  );
+
+  /*
    * project description
    */
   const projectDescriptionHeader = "краткое описание проекта";
@@ -444,6 +542,19 @@ function App() {
         </div>
       </header>
       <main>
+        <section>
+          <h2>{projectInfoHeader}</h2>
+          <div className="article">
+            <div className="article__image">
+              <p>{projectInfoQuote}</p>
+            </div>
+            <div className="article__content">
+              <h3>{projectInfoArticleHeader}</h3>
+              <div className="divider"></div>
+              {projectInfoArticle}
+            </div>
+          </div>
+        </section>
         <section>
           <h2>{projectDescriptionHeader}</h2>
           <div className="article">
