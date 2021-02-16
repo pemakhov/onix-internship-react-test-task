@@ -6,6 +6,13 @@ section#bio input[type=checkbox] {
   height: 1rem;
   margin-right: 1rem;
 }
+section#bio input[type=text] {
+  height: 2rem;
+  margin-right: 1rem;
+}
+section#bio form {
+  padding: 1rem 0;
+}
 section#bio table {
   margin: 2rem 0;
   border-spacing: 0;
@@ -19,6 +26,7 @@ section#bio table thead tr th {
 }
 section#bio table thead tr th:hover {
   cursor: pointer;
+  color: #422;
 }
 section#bio table tbody tr {
   height: 2.5rem;

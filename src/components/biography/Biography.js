@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Biography.css";
-import { BiographyTable } from "../biography-table/BiographyTable";
+import { View } from "./view/View";
+import { runSelectionSort } from "../../service/SelectionSort";
 
 export const Biography = function () {
   const header = "биография Линуса Торвальдса";
@@ -25,13 +26,14 @@ export const Biography = function () {
   const [ascendYear, setAscendYear] = useState(true);
   const [ascendEvent, setAscendEvent] = useState(true);
   const [sortCriteria, setSortCriteria] = useState("");
+  const [customSort, setCustomSort] = useState(false);
 
   const getSortedBioByYear = (data, ascend) => {
     const sortFunction = ascend ? (a, b) => b[0] - a[0] : (a, b) => a[0] - b[0];
     return [...data].sort(sortFunction);
   };
 
-  const getSortedBioByEvent = (data, ascend) => {
+  const getSortedBioByBiographyEvent = (data, ascend) => {
     const sortFunction = ascend
       ? (a, b) => (a[1] >= b[1] ? -1 : 1)
       : (a, b) => (a[1] >= b[1] ? 1 : -1);
@@ -39,24 +41,39 @@ export const Biography = function () {
   };
 
   const handleYearClick = () => {
-    setBio(getSortedBioByYear(bio, ascendYear));
+    const sortedBio = customSort
+      ? runSelectionSort(bio, ascendYear)
+      : getSortedBioByYear(bio, ascendYear);
+
+    setBio(sortedBio);
     setAscendYear(!ascendYear);
     setSortCriteria("year");
+    console.table(bio);
   };
 
   const handleEventClick = () => {
-    setBio(getSortedBioByEvent(bio, ascendEvent));
+    setBio(getSortedBioByBiographyEvent(bio, ascendEvent));
     setAscendEvent(!ascendEvent);
     setSortCriteria("event");
+    console.table(bio);
+  };
+
+  const handleCustomSortCheck = (event) => {
+    setCustomSort(event.target.checked);
+  };
+
+  const handleAddBiographyEvent = () => {
+
   };
 
   return (
     <>
-      <BiographyTable
+      <View
         header={header}
         bio={bio}
         handleYearClick={handleYearClick}
         handleEventClick={handleEventClick}
+        handleCustomSortCheck={handleCustomSortCheck}
         ascendYear={ascendYear}
         ascendEvent={ascendEvent}
         sortCriteria={sortCriteria}

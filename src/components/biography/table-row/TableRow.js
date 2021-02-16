@@ -1,6 +1,6 @@
 import React from "react";
 
-export function BiographyTableRow(props) {
+export function TableRow(props) {
   return (
     <tr>
       <td>{props.year}</td>
