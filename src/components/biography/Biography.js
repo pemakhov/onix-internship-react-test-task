@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Biography.css";
 import { View } from "./view/View";
 import { runSelectionSort } from "../../service/SelectionSort";
+import { userInputSchema } from "./Validator";
 
 export const Biography = function () {
   const header = "биография Линуса Торвальдса";
@@ -27,23 +28,21 @@ export const Biography = function () {
   const [ascendEvent, setAscendEvent] = useState(true);
   const [sortCriteria, setSortCriteria] = useState("");
   const [customSort, setCustomSort] = useState(false);
+  const [yearInput, setYearInput] = useState("");
+  const [eventInput, setEventInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const getSortedBioByYear = (data, ascend) => {
-    const sortFunction = ascend ? (a, b) => b[0] - a[0] : (a, b) => a[0] - b[0];
-    return [...data].sort(sortFunction);
-  };
-
-  const getSortedBioByBiographyEvent = (data, ascend) => {
+  const sortBio = (data, ascend, column) => {
     const sortFunction = ascend
-      ? (a, b) => (a[1] >= b[1] ? -1 : 1)
-      : (a, b) => (a[1] >= b[1] ? 1 : -1);
+      ? (a, b) => (a[column] >= b[column] ? -1 : 1)
+      : (a, b) => (a[column] >= b[column] ? 1 : -1);
     return [...data].sort(sortFunction);
   };
 
   const handleYearClick = () => {
     const sortedBio = customSort
-      ? runSelectionSort(bio, ascendYear)
-      : getSortedBioByYear(bio, ascendYear);
+      ? runSelectionSort(bio, ascendYear, 0)
+      : sortBio(bio, ascendYear, 0);
 
     setBio(sortedBio);
     setAscendYear(!ascendYear);
@@ -52,7 +51,11 @@ export const Biography = function () {
   };
 
   const handleEventClick = () => {
-    setBio(getSortedBioByBiographyEvent(bio, ascendEvent));
+    const sortedBio = customSort
+      ? runSelectionSort(bio, ascendEvent, 1)
+      : sortBio(bio, ascendEvent, 1);
+
+    setBio(sortedBio);
     setAscendEvent(!ascendEvent);
     setSortCriteria("event");
     console.table(bio);
@@ -62,8 +65,40 @@ export const Biography = function () {
     setCustomSort(event.target.checked);
   };
 
-  const handleAddBiographyEvent = () => {
+  const handleInputChange = (event) => {
+    setErrorMessage("");
+    const { name, value } = event.target;
 
+    if (name === "year") {
+      setYearInput(value);
+    } else if (name === "biography-event") {
+      setEventInput(value);
+    }
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log({ yearInput, eventInput });
+
+    const { error } = userInputSchema.validate({
+      yearInput: +yearInput,
+      eventInput,
+    });
+
+    if (error) {
+      console.error(error.message);
+      setErrorMessage(error.message);
+      return;
+    }
+
+    setBio([...bio, [+yearInput, eventInput]]);
+    setYearInput("");
+    setEventInput("");
+    event.target.reset();
+  };
+
+  const handleLastEventRemove = () => {
+    setBio(bio.slice(0, -1));
   };
 
   return (
@@ -77,6 +112,10 @@ export const Biography = function () {
         ascendYear={ascendYear}
         ascendEvent={ascendEvent}
         sortCriteria={sortCriteria}
+        handleInputChange={handleInputChange}
+        handleFormSubmit={handleFormSubmit}
+        errorMessage={errorMessage}
+        handleLastEventRemove={handleLastEventRemove}
       />
     </>
   );

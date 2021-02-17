@@ -8,10 +8,24 @@ section#bio input[type=checkbox] {
 }
 section#bio input[type=text] {
   height: 2rem;
+  margin-right: 2rem;
+}
+section#bio input#year-input {
+  width: 6rem;
+}
+section#bio input#event-input {
+  width: 30rem;
+}
+section#bio label {
   margin-right: 1rem;
 }
 section#bio form {
   padding: 1rem 0;
+}
+section#bio #error-message {
+  height: 1.5rem;
+  margin: 0 0 2rem;
+  color: darkred;
 }
 section#bio table {
   margin: 2rem 0;

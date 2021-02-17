@@ -1,9 +1,12 @@
-/**
- * Sorts an array arr in place by a selection sort method
- * @param {unknown[]} arr 
- */
-export function runSelectionSort(arr, ascend) {
-  console.log('Selection sort is running')
+ /**
+ * Sorts an array of arrays by data in a child array colon,
+ * using selection sort method
+  * @param {*} arr 
+  * @param {*} ascend if true, sorts from min to max and vice-versa if false
+  * @param {*} column index of column in child array to sort on
+  */
+export function runSelectionSort(arr, ascend, column) {
+  console.log("Selection sort is running");
 
   if (arr.length === 0 || arr.length === 1) {
     return arr;
@@ -13,7 +16,7 @@ export function runSelectionSort(arr, ascend) {
     let smallest = n;
 
     for (let i = n; i < arr.length; i += 1) {
-      if (arr[i] < arr[smallest]) {
+      if (arr[i][column] < arr[smallest][column]) {
         smallest = i;
       }
     }

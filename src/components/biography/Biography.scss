@@ -9,11 +9,28 @@ section#bio {
 
   input[type=text] {
     height: 2rem;
+    margin-right: 2rem;
+  }
+  input#year-input {
+    width: 6rem;
+  }
+
+  input#event-input {
+    width: 30rem;
+  }
+
+  label {
     margin-right: 1rem;
   }
 
   form {
     padding: 1rem 0;
+  }
+
+  #error-message {
+    height: 1.5rem;
+    margin: 0 0 2rem;
+    color: darkred;
   }
 
   table {

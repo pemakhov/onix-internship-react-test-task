@@ -1,13 +1,12 @@
 import React from "react";
-import { TableRow } from "../table-row/TableRow";
+import { TableRow } from "./table-row/TableRow";
 
 export function View(props) {
   const renderRow = (year, event) => (
-    <TableRow year={year} event={event} key={year} />
+    <TableRow year={year} event={event} key={`${year}-${event}`} />
   );
 
-  const switchSearchLabel =
-    "Сортировать даты используя алгоритм сортировки выбором";
+  const switchSearchLabel = "Использовать алгоритм сортировки выбором";
 
   return (
     <section id="bio">
@@ -22,20 +21,47 @@ export function View(props) {
       <table>
         <thead>
           <tr>
-            <th onClick={props.handleYearClick}>Дата</th>
-            <th onClick={props.handleEventClick}>Событие</th>
+            <th onClick={props.handleYearClick}>
+              Дата
+              {props.sortCriteria !== "year"
+                ? " ᐅ"
+                : props.ascendYear
+                ? "▼"
+                : "▲"}
+            </th>
+            <th onClick={props.handleEventClick}>
+              Событие
+              {props.sortCriteria !== "event"
+                ? " ᐅ"
+                : props.ascendEvent
+                ? "▼"
+                : "▲"}
+            </th>
           </tr>
         </thead>
         <tbody id="bio-content">
           {props.bio.map((row) => renderRow(...row))}
         </tbody>
       </table>
-      <form>
-        <input type="text" name="year" />
-        <input type="text" name="biography-event" />
+      <form onSubmit={(event) => props.handleFormSubmit(event)}>
+        <label htmlFor="year-input">Год</label>
+        <input
+          id="year-input"
+          type="text"
+          name="year"
+          onChange={(event) => props.handleInputChange(event)}
+        />
+        <label htmlFor="event-input">Событие</label>
+        <input
+          id="event-input"
+          type="text"
+          name="biography-event"
+          onChange={(event) => props.handleInputChange(event)}
+        />
         <button type="submit">Добавить</button>
       </form>
-      <button type="submit">Удалить последнюю запись</button>
+      <div id="error-message">{props.errorMessage}</div>
+      <button type="submit" onClick={props.handleLastEventRemove}>Удалить последнюю запись</button>
     </section>
   );
 }
