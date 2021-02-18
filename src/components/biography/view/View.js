@@ -43,7 +43,10 @@ export function View(props) {
           {props.bio.map((row) => renderRow(...row))}
         </tbody>
       </table>
-      <form onSubmit={(event) => props.handleFormSubmit(event)}>
+      <form
+        onSubmit={(event) => props.handleFormSubmit(event)}
+        autoComplete="off"
+      >
         <label htmlFor="year-input">Год</label>
         <input
           id="year-input"
@@ -61,7 +64,9 @@ export function View(props) {
         <button type="submit">Добавить</button>
       </form>
       <div id="error-message">{props.errorMessage}</div>
-      <button type="submit" onClick={props.handleLastEventRemove}>Удалить последнюю запись</button>
+      <button type="submit" onClick={props.handleLastEventRemove}>
+        Удалить последнюю запись
+      </button>
     </section>
   );
 }

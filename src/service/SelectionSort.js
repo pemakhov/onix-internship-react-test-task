@@ -1,5 +1,5 @@
  /**
- * Sorts an array of arrays by data in a child array colon,
+ * Sorts an array of arrays by data in a child array column,
  * using selection sort method
   * @param {*} arr 
   * @param {*} ascend if true, sorts from min to max and vice-versa if false
