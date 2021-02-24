@@ -3,12 +3,12 @@
  * using selection sort method
   * @param {*} arr 
   * @param {*} ascend if true, sorts from min to max and vice-versa if false
-  * @param {*} column index of column in child array to sort on
+  * @param {*} property index of column in child array to sort on
   */
-export function runSelectionSort(arr, ascend, column) {
+export function runSelectionSort(arr, ascend, property) {
   console.log("Selection sort is running");
 
-  if (arr.length === 0 || arr.length === 1) {
+  if (arr.length <= 1) {
     return arr;
   }
 
@@ -16,7 +16,7 @@ export function runSelectionSort(arr, ascend, column) {
     let smallest = n;
 
     for (let i = n; i < arr.length; i += 1) {
-      if (arr[i][column] < arr[smallest][column]) {
+      if (arr[i][property] < arr[smallest][property]) {
         smallest = i;
       }
     }

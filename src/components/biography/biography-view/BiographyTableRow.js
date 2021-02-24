@@ -4,7 +4,7 @@ export function TableRow(props) {
   return (
     <tr>
       <td>{props.year}</td>
-      <td>{props.event}</td>
+      <td>{props.episode}</td>
     </tr>
   );
 }

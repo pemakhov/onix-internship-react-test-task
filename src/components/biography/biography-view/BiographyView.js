@@ -1,9 +1,9 @@
 import React from "react";
-import { TableRow } from "./table-row/TableRow";
+import { TableRow } from "./BiographyTableRow";
 
 export function View(props) {
-  const renderRow = (year, event) => (
-    <TableRow year={year} event={event} key={`${year}-${event}`} />
+  const renderRow = (year, episode) => (
+    <TableRow year={year} episode={episode} key={`${year}-${episode}`} />
   );
 
   const switchSearchLabel = "Использовать алгоритм сортировки выбором";
@@ -26,25 +26,25 @@ export function View(props) {
               {props.sortCriteria !== "year"
                 ? " ᐅ"
                 : props.ascendYear
-                ? "▼"
-                : "▲"}
+                ? " ▼"
+                : " ▲"}
             </th>
-            <th onClick={props.handleEventClick}>
+            <th onClick={props.handleEpisodeClick}>
               Событие
-              {props.sortCriteria !== "event"
+              {props.sortCriteria !== "episode"
                 ? " ᐅ"
-                : props.ascendEvent
-                ? "▼"
-                : "▲"}
+                : props.ascendEpisode
+                ? " ▼"
+                : " ▲"}
             </th>
           </tr>
         </thead>
         <tbody id="bio-content">
-          {props.bio.map((row) => renderRow(...row))}
+          {props.bio.map((row) => renderRow(row.year, row.episode))}
         </tbody>
       </table>
       <form
-        onSubmit={(event) => props.handleFormSubmit(event)}
+        onSubmit={(episode) => props.handleFormSubmit(episode)}
         autoComplete="off"
       >
         <label htmlFor="year-input">Год</label>
@@ -52,19 +52,19 @@ export function View(props) {
           id="year-input"
           type="text"
           name="year"
-          onChange={(event) => props.handleInputChange(event)}
+          onChange={(episode) => props.handleInputChange(episode)}
         />
-        <label htmlFor="event-input">Событие</label>
+        <label htmlFor="episode-input">Событие</label>
         <input
-          id="event-input"
+          id="episode-input"
           type="text"
-          name="biography-event"
-          onChange={(event) => props.handleInputChange(event)}
+          name="episode"
+          onChange={(episode) => props.handleInputChange(episode)}
         />
         <button type="submit">Добавить</button>
       </form>
-      <div id="error-message">{props.errorMessage}</div>
-      <button type="submit" onClick={props.handleLastEventRemove}>
+      <div className="error-message">{props.errorMessage}</div>
+      <button type="submit" onClick={props.handleLastEpisodeRemove}>
         Удалить последнюю запись
       </button>
     </section>

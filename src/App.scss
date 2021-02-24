@@ -58,6 +58,13 @@ button:focus {
   outline: 0;
 }
 
+.error-message {
+  height: 1.5rem;
+  margin: 0 0 2rem;
+  color: darkred;
+}
+
+
 html {
   scroll-behavior: smooth;
   width: 100%;
@@ -225,6 +232,13 @@ html {
           p {
             color: $textLight;
             font-size: 1rem;
+          }
+
+          ul {
+            li {
+              font-size: 1.2rem;
+              margin: 0.5rem 0;
+            }
           }
 
           .article-block {

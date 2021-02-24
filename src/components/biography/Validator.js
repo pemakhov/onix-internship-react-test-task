@@ -7,10 +7,10 @@ export const userInputSchema = Joi.object({
       "Укажите дату после рождения Линуса",
     "number.max": "Сейчас только {#limit} год",
   }),
-  eventInput: Joi.string().min(5).max(200).messages({
+  episodeInput: Joi.string().min(5).max(200).messages({
     "string.base": "Событие биографии должно быть строкой",
     "string.empty": "Событие должно быть указано",
     "string.min": "Строка должна содержать хотябы {#limit} символов",
-    "string.max": "Строка должна не должна быть длинее {#limit} символов",
+    "string.max": "Строка не должна быть длинее {#limit} символов",
   }),
 });

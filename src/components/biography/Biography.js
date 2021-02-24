@@ -1,48 +1,54 @@
 import React, { useState } from "react";
 import "./Biography.css";
-import { View } from "./view/View";
+import { View } from "./biography-view/BiographyView";
 import { runSelectionSort } from "../../service/SelectionSort";
 import { userInputSchema } from "./Validator";
 
 export const Biography = function () {
   const header = "биография Линуса Торвальдса";
   const initialBio = [
-    [1969, "Родился в г. Хельсинки"],
-    [1988, "Поступил в Хельсинский университет"],
-    [1990, "Купил ПК IBM с процом Intel 80386"],
-    [1991, "Выложил в общий доступ первую версию Linux"],
-    [1993, "Познакомился с будущей женой Туве"],
-    [1996, "Окончил Хельсинский университет"],
-    [1997, "Устроился в компанию Transmeta, Сан Хосе"],
-    [2003, "Начал работать на OSDL"],
-    [2005, "Выпустил первую версию git"],
-    [2008, "Официально представлен музеем истории компьютеров в Калифорнии"],
-    [2010, "Приз C&C"],
-    [2012, 'Премия "Технология тысячелетия" (Финляндия)'],
-    [2014, 'Награда "Пионер компьютероной техники"'],
-    [2018, 'Премия "IEEE Masaru Ibuka Consumer Electronics Award"'],
+    { year: 1969, episode: "Родился в г. Хельсинки" },
+    { year: 1988, episode: "Поступил в Хельсинский университет" },
+    { year: 1990, episode: "Купил ПК IBM с процом Intel 80386" },
+    { year: 1991, episode: "Выложил в общий доступ первую версию Linux" },
+    { year: 1993, episode: "Познакомился с будущей женой Туве" },
+    { year: 1996, episode: "Окончил Хельсинский университет" },
+    { year: 1997, episode: "Устроился в компанию Transmeta, Сан Хосе" },
+    { year: 2003, episode: "Начал работать на OSDL" },
+    { year: 2005, episode: "Выпустил первую версию git" },
+    {
+      year: 2008,
+      episode: "Официально представлен музеем истории компьютеров в Калифорнии",
+    },
+    { year: 2010, episode: "Приз C&C" },
+    { year: 2012, episode: 'Премия "Технология тысячелетия" (Финляндия)' },
+    { year: 2014, episode: 'Награда "Пионер компьютероной техники"' },
+    {
+      year: 2018,
+      episode: 'Премия "IEEE Masaru Ibuka Consumer Electronics Award"',
+    },
   ];
 
   const [bio, setBio] = useState(initialBio);
   const [ascendYear, setAscendYear] = useState(true);
-  const [ascendEvent, setAscendEvent] = useState(true);
+  const [ascendEpisode, setAscendEpisode] = useState(true);
   const [sortCriteria, setSortCriteria] = useState("");
   const [customSort, setCustomSort] = useState(false);
   const [yearInput, setYearInput] = useState("");
-  const [eventInput, setEventInput] = useState("");
+  const [episodeInput, setEpisodeInput] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const sortBio = (data, ascend, column) => {
+  const sortBio = (data, ascend, property) => {
     const sortFunction = ascend
-      ? (a, b) => (a[column] >= b[column] ? -1 : 1)
-      : (a, b) => (a[column] >= b[column] ? 1 : -1);
+      ? (a, b) => (a[property] >= b[property] ? -1 : 1)
+      : (a, b) => (a[property] >= b[property] ? 1 : -1);
     return [...data].sort(sortFunction);
   };
 
   const handleYearClick = () => {
     const sortedBio = customSort
-      ? runSelectionSort(bio, ascendYear, 0)
-      : sortBio(bio, ascendYear, 0);
+      ? runSelectionSort(bio, ascendYear, "year")
+      : sortBio(bio, ascendYear, "year");
 
     setBio(sortedBio);
     setAscendYear(!ascendYear);
@@ -50,39 +56,38 @@ export const Biography = function () {
     console.table(bio);
   };
 
-  const handleEventClick = () => {
+  const handleEpisodeClick = () => {
     const sortedBio = customSort
-      ? runSelectionSort(bio, ascendEvent, 1)
-      : sortBio(bio, ascendEvent, 1);
+      ? runSelectionSort(bio, ascendEpisode, "episode")
+      : sortBio(bio, ascendEpisode, "episode");
 
     setBio(sortedBio);
-    setAscendEvent(!ascendEvent);
-    setSortCriteria("event");
+    setAscendEpisode(!ascendEpisode);
+    setSortCriteria("episode");
     console.table(bio);
   };
 
-  const handleCustomSortCheck = (event) => {
-    setCustomSort(event.target.checked);
+  const handleCustomSortCheck = (episode) => {
+    setCustomSort(episode.target.checked);
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (episode) => {
     setErrorMessage("");
-    const { name, value } = event.target;
+    const { name, value } = episode.target;
 
     if (name === "year") {
       setYearInput(value);
-    } else if (name === "biography-event") {
-      setEventInput(value);
+    } else if (name === "episode") {
+      setEpisodeInput(value);
     }
   };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log({ yearInput, eventInput });
 
     const { error } = userInputSchema.validate({
       yearInput: +yearInput,
-      eventInput,
+      episodeInput,
     });
 
     if (error) {
@@ -91,13 +96,13 @@ export const Biography = function () {
       return;
     }
 
-    setBio([...bio, [+yearInput, eventInput]]);
+    setBio([...bio, { year: +yearInput, episode: episodeInput }]);
     setYearInput("");
-    setEventInput("");
+    setEpisodeInput("");
     event.target.reset();
   };
 
-  const handleLastEventRemove = () => {
+  const handleLastEpisodeRemove = () => {
     setBio(bio.slice(0, -1));
   };
 
@@ -107,15 +112,15 @@ export const Biography = function () {
         header={header}
         bio={bio}
         handleYearClick={handleYearClick}
-        handleEventClick={handleEventClick}
+        handleEpisodeClick={handleEpisodeClick}
         handleCustomSortCheck={handleCustomSortCheck}
         ascendYear={ascendYear}
-        ascendEvent={ascendEvent}
+        ascendEpisode={ascendEpisode}
         sortCriteria={sortCriteria}
         handleInputChange={handleInputChange}
         handleFormSubmit={handleFormSubmit}
         errorMessage={errorMessage}
-        handleLastEventRemove={handleLastEventRemove}
+        handleLastEpisodeRemove={handleLastEpisodeRemove}
       />
     </>
   );

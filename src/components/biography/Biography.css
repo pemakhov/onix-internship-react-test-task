@@ -22,11 +22,6 @@ section#bio label {
 section#bio form {
   padding: 1rem 0;
 }
-section#bio #error-message {
-  height: 1.5rem;
-  margin: 0 0 2rem;
-  color: darkred;
-}
 section#bio table {
   margin: 2rem 0;
   border-spacing: 0;
