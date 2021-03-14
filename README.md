@@ -1,4 +1,4 @@
-# Lessson 4
+# Lessson 5
 
-## Objects
+## JS basics. Scopes.
 

@@ -38,6 +38,21 @@ export const Biography = function () {
   const [episodeInput, setEpisodeInput] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const report = (oldBio, newBio) => {
+    console.log("Bio before change:");
+    console.table(oldBio);
+
+    console.log("Bio after change:");
+    console.table(newBio);
+  };
+
+  /**
+   * Sorts data
+   * @param {{year: number, episode: string}[]} data
+   * @param {boolean} ascend
+   * @param {string} property
+   * @returns {{year: number, episode: string}[]} sorted data
+   */
   const sortBio = (data, ascend, property) => {
     const sortFunction = ascend
       ? (a, b) => (a[property] >= b[property] ? -1 : 1)
@@ -50,10 +65,12 @@ export const Biography = function () {
       ? runSelectionSort(bio, ascendYear, "year")
       : sortBio(bio, ascendYear, "year");
 
+    // log the old and the new bios
+    report(bio, sortedBio);
+
     setBio(sortedBio);
     setAscendYear(!ascendYear);
     setSortCriteria("year");
-    console.table(bio);
   };
 
   const handleEpisodeClick = () => {
@@ -61,10 +78,12 @@ export const Biography = function () {
       ? runSelectionSort(bio, ascendEpisode, "episode")
       : sortBio(bio, ascendEpisode, "episode");
 
+    // log the old and the new bios
+    report(bio, sortedBio);
+
     setBio(sortedBio);
     setAscendEpisode(!ascendEpisode);
     setSortCriteria("episode");
-    console.table(bio);
   };
 
   const handleCustomSortCheck = (episode) => {
@@ -82,6 +101,14 @@ export const Biography = function () {
     }
   };
 
+  /**
+   * Adds a new episode to the end of bio
+   * @param {{year: number, episode: string}[]} bio 
+   * @param {{year: number, episode: string}} episode 
+   * @returns {{year: number, episode: string}[]} bio with a new episode added to the end
+   */
+  const addEpisodeToBio = (bio, episode) => [...bio, episode];
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -96,13 +123,32 @@ export const Biography = function () {
       return;
     }
 
-    setBio([...bio, { year: +yearInput, episode: episodeInput }]);
+    const newEpisode = { year: +yearInput, episode: episodeInput };
+
+    const updatedBio = addEpisodeToBio(bio, newEpisode);
+
+    // log the old and the new bios
+    report(bio, updatedBio);
+
+    setBio(updatedBio);
     setYearInput("");
     setEpisodeInput("");
     event.target.reset();
   };
 
+  /**
+   * Deletes the last episode from bio 
+   * @param {{year: number, episode: string}[]} bio 
+   * @returns {{year: number, episode: string}[]} the bio with the last episode deleted
+   */
+  const removeLastEpisodeFromBio = (bio) => bio.slice(0, -1);
+
   const handleLastEpisodeRemove = () => {
+    const updatedBio = removeLastEpisodeFromBio(bio);
+
+    // log the old and the new bios
+    report(bio, updatedBio);
+
     setBio(bio.slice(0, -1));
   };
 

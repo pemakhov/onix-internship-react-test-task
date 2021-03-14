@@ -1,7 +1,6 @@
 import "./App.css";
 import { CurrentStage } from "./components/current-stage/CurrentStage";
 import { Biography } from "./components/biography/Biography";
-import { Summary } from "./components/summary/Summary";
 
 function App() {
   /*
@@ -61,7 +60,6 @@ function App() {
 
         <CurrentStage />
         <Biography />
-        <Summary />
       </main>
 
       <footer>
