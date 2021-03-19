@@ -5,8 +5,10 @@
   * @param {*} ascend if true, sorts from min to max and vice-versa if false
   * @param {*} property index of column in child array to sort on
   */
-export function runSelectionSort(arr, ascend, property) {
+export function runSelectionSort(data, ascend, property) {
   console.log("Selection sort is running");
+
+  const arr = [...data]
 
   if (arr.length <= 1) {
     return arr;
