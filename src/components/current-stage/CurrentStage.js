@@ -89,9 +89,22 @@ export class CurrentStage extends React.Component {
             </>
           ),
         },
+        {
+          topic: "основы js, область видимости, fetch",
+          goal:
+            "ознакомиться с понятием области видимости, ознакомиться с fetch",
+          task: (
+            <>
+              <p>
+                получить информацию из любого стороннего апи и отобразить на
+                странице в виде списка или таблицы
+              </p>
+            </>
+          ),
+        },
       ],
       meetingDayNumber: 6,
-      currentStageNumber: 5,
+      currentStageNumber: 6,
     };
   }
 

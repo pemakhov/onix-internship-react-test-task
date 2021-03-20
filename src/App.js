@@ -1,6 +1,6 @@
 import "./App.css";
 import { CurrentStage } from "./components/current-stage/CurrentStage";
-import { Biography } from "./components/biography/Biography";
+import { SuperheroList } from "./components/superheros/SuperheroList";
 
 function App() {
   /*
@@ -57,9 +57,8 @@ function App() {
         <a id="info" href="info" className="hidden-anchor">
           {anchorText}
         </a>
-
         <CurrentStage />
-        <Biography />
+        <SuperheroList />
       </main>
 
       <footer>
