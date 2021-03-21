@@ -17,7 +17,7 @@ export function Superhero(props) {
   height = !height || height[0] === "0" ? "classified" : height;
 
   let weight = data.appearance.weight[1];
-  weight = !weight || weight[0] === "0" ? "classified" : height;
+  weight = !weight || weight[0] === "0" ? "classified" : weight;
 
   return (
     <div className="article">

@@ -4,13 +4,13 @@ import { Superhero } from "./Superhero";
 
 export class SuperheroList extends Component {
   state = {
-    url: "https://www.superheroapi.com/api.php/10159321593748921/",
     superheros: [],
   };
 
-  minSuperheroId = 1;
-  maxSuperheroId = 732;
-  superherosToShow = 10;
+  URL = "https://www.superheroapi.com/api.php/10159321593748921/";
+  MIN_ID = 1;
+  MAX_ID = 732;
+  SUPERHEROS_TO_SHOW = 10;
 
   isSuccessfulResponse(res) {
     return res === "success";
@@ -24,15 +24,15 @@ export class SuperheroList extends Component {
 
   async componentDidMount() {
     const superheroIdList = CustomMath.getArrayOfRandomNumbersInRange({
-      length: this.superherosToShow,
+      length: this.SUPERHEROS_TO_SHOW,
       range: {
-        min: this.minSuperheroId,
-        max: this.maxSuperheroId,
+        min: this.MIN_ID,
+        max: this.MAX_ID,
       },
     });
 
     const superheroPromises = superheroIdList.map((id) => {
-      const url = this.state.url + id;
+      const url = this.URL + id;
       return this.getSuperhero(url);
     });
 
