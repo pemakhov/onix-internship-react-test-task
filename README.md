@@ -1,4 +1,6 @@
-# Lessson 5
+# Lessson 6
 
-## JS basics. Scopes.
+## JS basics. Scopes. Fetch.
+
+Fetches and displays 10 random superheros from the public API
 
