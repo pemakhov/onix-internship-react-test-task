@@ -53,15 +53,17 @@ export class SuperheroGame extends Component {
       return;
     }
     this.setState({ active: i });
-  }
+  };
 
   handleCheckButtonClick = () => {
     if (this.state.active === this.state.chosen) {
     }
     this.setState({ gameOver: true });
-  }
+  };
 
   replaceBrokenSuperhero = (n) => {
+    alert("Картинка супергероя не грузится и герой будет заменен");
+
     if (this.state.reserve.length === 0) {
       return;
     }
@@ -72,7 +74,7 @@ export class SuperheroGame extends Component {
     updatedSuperheros[n] = updatedReserve.pop();
 
     this.setState({ superheros: updatedSuperheros, reserve: updatedReserve });
-  }
+  };
 
   addKeyboardControl() {
     const handleKeyDown = (event) => {
@@ -111,7 +113,7 @@ export class SuperheroGame extends Component {
             (this.state.active + this.SUPERHEROS_TO_SHOW - 3) %
             this.SUPERHEROS_TO_SHOW;
           break;
-        
+
         case "ArrowDown":
           nextActive = (this.state.active + 3) % this.SUPERHEROS_TO_SHOW;
           break;
@@ -127,6 +129,39 @@ export class SuperheroGame extends Component {
     window.addEventListener("keydown", handleKeyDown);
   }
 
+  replaceTwoSuperheros = (x, y) => {
+    const updatedSuperheros = [...this.state.superheros];
+    const superheroX = updatedSuperheros[x];
+    updatedSuperheros[x] = updatedSuperheros[y];
+    updatedSuperheros[y] = superheroX;
+
+    this.setState({ superheros: updatedSuperheros });
+  };
+
+  handleDragStart = (event) => {
+    event.dataTransfer.setData(
+      "text/plain",
+      event.target.getAttribute("data-key")
+    );
+    event.dataTransfer.effectAllowed = "move";
+  };
+
+  handleDragOver = (event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  };
+
+  handleDrop = (event) => {
+    event.preventDefault();
+    const sourceKey = event.dataTransfer.getData("text/plain");
+    const targetKey = event.target.getAttribute("data-key");
+
+    this.replaceTwoSuperheros(sourceKey, targetKey);
+  };
+
+  /**
+   * Inits the game
+   */
   init = async () => {
     if (this.state.gameOver) {
       this.setState(this.initialState);
@@ -164,7 +199,7 @@ export class SuperheroGame extends Component {
     } catch (apiError) {
       this.setState({ apiError });
     }
-  }
+  };
 
   componentDidMount() {
     this.init();
@@ -189,6 +224,9 @@ export class SuperheroGame extends Component {
           gameState={gameState}
           handleClick={this.handleCardClick}
           replaceBrokenSuperhero={this.replaceBrokenSuperhero}
+          handleDragStart={this.handleDragStart}
+          handleDragOver={this.handleDragOver}
+          handleDrop={this.handleDrop}
         />
       );
 
