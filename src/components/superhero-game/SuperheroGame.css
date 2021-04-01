@@ -1,0 +1,8 @@
+#superhero-game {
+  display: flex;
+}
+
+#superhero-game .game-panel {
+  font-size: 2rem;
+  padding: 0 25px 0 25px;
+}

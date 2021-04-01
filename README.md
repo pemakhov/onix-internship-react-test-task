@@ -1,6 +1,6 @@
-# Lessson 6
+# Lessson 7
 
-## JS basics. Scopes. Fetch.
+## JS basics. Events.
 
-Fetches and displays 10 random superheros from the public API
+Guess a superhero game
 

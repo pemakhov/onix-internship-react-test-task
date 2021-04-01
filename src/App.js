@@ -1,6 +1,6 @@
 import "./App.css";
 import { CurrentStage } from "./components/current-stage/CurrentStage";
-import { SuperheroList } from "./components/superheros/SuperheroList";
+import { SuperheroGame } from "./components/superhero-game/SuperheroGame";
 
 function App() {
   /*
@@ -8,6 +8,7 @@ function App() {
    */
   const logo = "react.";
   const navInfo = "info";
+  const navGame = "game";
   const navLinks = "ссылки";
   const pageMainHeader = "Учим React";
   const pageSecondaryHeader = "на интернатуре в ONIX";
@@ -41,6 +42,9 @@ function App() {
                 <a href="#info">{navInfo}</a>
               </li>
               <li>
+                <a href="#game">{navGame}</a>
+              </li>
+              <li>
                 <a href="#links">{navLinks}</a>
               </li>
             </ul>
@@ -58,7 +62,10 @@ function App() {
           {anchorText}
         </a>
         <CurrentStage />
-        <SuperheroList />
+        <a id="game" href="game" className="hidden-anchor">
+          {anchorText}
+        </a>
+        <SuperheroGame />
       </main>
 
       <footer>

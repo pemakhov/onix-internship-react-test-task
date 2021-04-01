@@ -1,0 +1,48 @@
+#superhero-board {
+  display: flex;
+  flex-direction: column;
+}
+
+#superhero-board .row {
+  display: flex;
+}
+
+#superhero-board .row .col {
+  width: 200px;
+  height: 250px;
+  border: none;
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+
+#superhero-board .row .col:hover {
+  box-shadow: 0 0 15px 5px yellow;
+}
+
+#superhero-board .row .col.correct:hover,
+#superhero-board .row .col.wrong:hover,
+#superhero-board .row .col.fade:hover {
+  box-shadow: none;
+}
+
+#superhero-board .row .col.active {
+  border: 5px solid yellow;
+}
+
+#superhero-board .row .col.correct {
+  border: 15px solid green;
+}
+
+#superhero-board .row .col.wrong {
+  border: 5px solid red;
+}
+
+#superhero-board .row .col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#superhero-board .row .col.fade img {
+  opacity: 70%;
+}
