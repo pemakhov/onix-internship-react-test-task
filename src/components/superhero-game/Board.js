@@ -33,22 +33,24 @@ export function Board(props) {
     );
   };
 
+  const images = props.superheros.map((superhero) => superhero.image.url);
+
   return (
     <div id="superhero-board">
       <div className="row">
-        {renderCard(props.superheroImageUrls[0], 0)}
-        {renderCard(props.superheroImageUrls[1], 1)}
-        {renderCard(props.superheroImageUrls[2], 2)}
+        {renderCard(images[0], 0)}
+        {renderCard(images[1], 1)}
+        {renderCard(images[2], 2)}
       </div>
       <div className="row">
-        {renderCard(props.superheroImageUrls[3], 3)}
-        {renderCard(props.superheroImageUrls[4], 4)}
-        {renderCard(props.superheroImageUrls[5], 5)}
+        {renderCard(images[3], 3)}
+        {renderCard(images[4], 4)}
+        {renderCard(images[5], 5)}
       </div>
       <div className="row">
-        {renderCard(props.superheroImageUrls[6], 6)}
-        {renderCard(props.superheroImageUrls[7], 7)}
-        {renderCard(props.superheroImageUrls[8], 8)}
+        {renderCard(images[6], 6)}
+        {renderCard(images[7], 7)}
+        {renderCard(images[8], 8)}
       </div>
     </div>
   );

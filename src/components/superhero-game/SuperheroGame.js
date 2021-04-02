@@ -41,10 +41,6 @@ export class SuperheroGame extends Component {
     return await Promise.all(superheroPromises);
   }
 
-  getSuperheroImageUrls() {
-    return this.state.superheros.map((superhero) => superhero.image.url);
-  }
-
   handleCardClick = (i) => {
     if (this.state.gameOver) {
       return;
@@ -220,7 +216,7 @@ export class SuperheroGame extends Component {
     if (this.state.loaded && !this.state.apiError) {
       board = (
         <Board
-          superheroImageUrls={this.getSuperheroImageUrls()}
+          superheros={this.state.superheros}
           gameState={gameState}
           handleClick={this.handleCardClick}
           replaceBrokenSuperhero={this.replaceBrokenSuperhero}
