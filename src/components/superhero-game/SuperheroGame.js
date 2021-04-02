@@ -58,7 +58,7 @@ export class SuperheroGame extends Component {
   };
 
   replaceBrokenSuperhero = (n) => {
-    alert("Картинка супергероя не грузится и герой будет заменен");
+    alert("Некоторые данные супергероя не загрузилиь и герой будет заменен");
 
     if (this.state.reserve.length === 0) {
       return;
@@ -131,7 +131,9 @@ export class SuperheroGame extends Component {
     updatedSuperheros[x] = updatedSuperheros[y];
     updatedSuperheros[y] = superheroX;
 
-    this.setState({ superheros: updatedSuperheros });
+    const updatedChosen = this.state.chosen === x ? y : this.state.chosen;
+
+    this.setState({ superheros: updatedSuperheros, chosen: updatedChosen });
   };
 
   handleDragStart = (event) => {
@@ -149,8 +151,8 @@ export class SuperheroGame extends Component {
 
   handleDrop = (event) => {
     event.preventDefault();
-    const sourceKey = event.dataTransfer.getData("text/plain");
-    const targetKey = event.target.getAttribute("data-key");
+    const sourceKey = parseInt(event.dataTransfer.getData("text/plain"));
+    const targetKey = parseInt(event.target.getAttribute("data-key"));
 
     this.replaceTwoSuperheros(sourceKey, targetKey);
   };
@@ -203,12 +205,6 @@ export class SuperheroGame extends Component {
   }
 
   render() {
-    const gameState = {
-      chosen: this.state.chosen,
-      active: this.state.active,
-      gameOver: this.state.gameOver,
-    };
-
     let board = null,
       panel = null,
       errorMessage = null;
@@ -217,7 +213,11 @@ export class SuperheroGame extends Component {
       board = (
         <Board
           superheros={this.state.superheros}
-          gameState={gameState}
+          gameState={{
+            chosen: this.state.chosen,
+            active: this.state.active,
+            gameOver: this.state.gameOver,
+          }}
           handleClick={this.handleCardClick}
           replaceBrokenSuperhero={this.replaceBrokenSuperhero}
           handleDragStart={this.handleDragStart}
@@ -228,7 +228,11 @@ export class SuperheroGame extends Component {
 
       panel = (
         <Panel
-          gameState={gameState}
+          gameState={{
+            chosen: this.state.chosen,
+            active: this.state.active,
+            gameOver: this.state.gameOver,
+          }}
           superheros={this.state.superheros}
           handleButtonClick={this.handleCheckButtonClick}
           replaceBrokenSuperhero={this.replaceBrokenSuperhero}
