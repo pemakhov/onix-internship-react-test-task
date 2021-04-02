@@ -58,7 +58,7 @@ export class SuperheroGame extends Component {
   };
 
   replaceBrokenSuperhero = (n) => {
-    alert("Некоторые данные супергероя не загрузилиь и герой будет заменен");
+    alert("Некоторые данные супергероя не загрузились и герой будет заменен");
 
     if (this.state.reserve.length === 0) {
       return;
