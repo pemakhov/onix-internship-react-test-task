@@ -22,7 +22,7 @@ export class SuperheroGame extends Component {
 
   URL = "https://www.superheroapi.com/api.php/10159321593748921/";
   MIN_ID = 1;
-  MAX_ID = 732;
+  MAX_ID = 731;
   SUPERHEROS_TO_SHOW = 9;
   RESERVE_OF_SUPERHEROS = 5;
 
@@ -60,6 +60,7 @@ export class SuperheroGame extends Component {
   replaceBrokenSuperhero = (n) => {
     alert("Некоторые данные супергероя не загрузились и герой будет заменен");
 
+    console.log("replacing broken superhero", n)
     if (this.state.reserve.length === 0) {
       return;
     }
@@ -131,10 +132,20 @@ export class SuperheroGame extends Component {
     updatedSuperheros[x] = updatedSuperheros[y];
     updatedSuperheros[y] = superheroX;
 
-    const updatedChosen = this.state.chosen === x ? y : this.state.chosen;
-
-    this.setState({ superheros: updatedSuperheros, chosen: updatedChosen });
+    this.setState({ superheros: updatedSuperheros });
   };
+
+  updateChosenIndex = (x, y) => {
+    const { chosen } = this.state;
+
+    if (chosen !== x && chosen !== y) {
+      return;
+    }
+
+    const newIndex = chosen === x ? y : x;
+
+    this.setState({ chosen: newIndex });
+  }
 
   handleDragStart = (event) => {
     event.dataTransfer.setData(
@@ -155,6 +166,7 @@ export class SuperheroGame extends Component {
     const targetKey = parseInt(event.target.getAttribute("data-key"));
 
     this.replaceTwoSuperheros(sourceKey, targetKey);
+    this.updateChosenIndex(sourceKey, targetKey);
   };
 
   /**
