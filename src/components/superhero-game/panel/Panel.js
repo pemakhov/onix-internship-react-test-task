@@ -14,7 +14,7 @@ export function Panel(props) {
       gameState={props.gameState}
       chosenSuperhero={chosenSuperhero}
       handleButtonClick={props.handleButtonClick}
-      initNewGame={props.initNewGame}
+      startNewGame={props.startNewGame}
     />
   );
 }

@@ -10,10 +10,17 @@ export class CurrentStage extends React.Component {
 
   render() {
     const daysToMeeting = this.state.meetingDayNumber - new Date().getDay();
+    const daysWordWithProperEnding =
+      daysToMeeting > 4 ? "днів" : daysToMeeting > 1 ? "дні" : "день";
+
+    const announce =
+      daysToMeeting === 0
+        ? "Зустріч сьогодні"
+        : `До зустрічі ${daysToMeeting} ${daysWordWithProperEnding}`;
 
     return (
       <CurrentStageView
-        daysTooMeeting={daysToMeeting}
+        announce={announce}
         stages={this.state.stages}
       />
     );

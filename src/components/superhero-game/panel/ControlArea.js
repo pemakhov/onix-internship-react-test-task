@@ -4,7 +4,7 @@ import { Button } from "../../page-elements/Button";
 export function ControlArea(props) {
   const getContent = (active, gameOver) => {
     if (gameOver) {
-      return <Button onClick={props.initNewGame} value={"Новая игра"} />;
+      return <Button onClick={props.startNewGame} value={"Новая игра"} />;
     }
 
     if (active !== null) {

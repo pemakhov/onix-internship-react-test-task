@@ -56,7 +56,9 @@ export class SuperheroGame extends Component {
   };
 
   replaceBrokenSuperhero = (n) => {
-    alert("Де-які дані супергероя не завантажились і супергерой буде замінений");
+    alert(
+      "Де-які дані супергероя не завантажились і супергерой буде замінений"
+    );
 
     if (this.state.reserve.length === 0) {
       return;
@@ -142,9 +144,13 @@ export class SuperheroGame extends Component {
     const newIndex = chosen === x ? y : x;
 
     this.setState({ chosen: newIndex });
-  }
+  };
 
   handleDragStart = (event) => {
+    if (this.state.gameOver) {
+      return;
+    }
+
     event.dataTransfer.setData(
       "text/plain",
       event.target.getAttribute("data-key")
@@ -153,11 +159,19 @@ export class SuperheroGame extends Component {
   };
 
   handleDragOver = (event) => {
+    if (this.state.gameOver) {
+      return;
+    }
+
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
 
   handleDrop = (event) => {
+    if (this.state.gameOver) {
+      return;
+    }
+
     event.preventDefault();
     const sourceKey = parseInt(event.dataTransfer.getData("text/plain"));
     const targetKey = parseInt(event.target.getAttribute("data-key"));
@@ -170,10 +184,6 @@ export class SuperheroGame extends Component {
    * Inits the game
    */
   init = async () => {
-    if (this.state.gameOver) {
-      this.setState(this.initialState);
-    }
-
     const idList = CustomMath.getArrayOfRandomNumbersInRange({
       length: this.SUPERHEROS_TO_SHOW + this.RESERVE_OF_SUPERHEROS,
       range: {
@@ -208,30 +218,45 @@ export class SuperheroGame extends Component {
     }
   };
 
+  startNewGame = () => {
+    this.setState({ gameOver: false });
+  }
+
   componentDidMount() {
     this.init();
     this.addKeyboardControl();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (!(prevState.gameOver && !this.state.gameOver)) {
+      return;
+    }
+
+    this.setState(this.initialState);
+    this.init();
+  }
+
   render() {
-    return <SuperheroGameView
-      superheros={this.state.superheros}
-      gameState={{
-        chosen: this.state.chosen,
-        active: this.state.active,
-        gameOver: this.state.gameOver,
-        loaded: this.state.loaded,
-        apiError: this.state.apiError,
-      }}
-      handlers={{
-        handleCardClick: this.handleCardClick,
-        replaceBrokenSuperhero: this.replaceBrokenSuperhero,
-        handleDragStart: this.handleDragStart,
-        handleDragOver: this.handleDragOver,
-        handleDrop: this.handleDrop,
-        handleCheckButtonClick: this.handleCheckButtonClick,
-        initNewGame: this.init,
-      }}
-    />;
+    return (
+      <SuperheroGameView
+        superheros={this.state.superheros}
+        gameState={{
+          chosen: this.state.chosen,
+          active: this.state.active,
+          gameOver: this.state.gameOver,
+          loaded: this.state.loaded,
+          apiError: this.state.apiError,
+        }}
+        handlers={{
+          handleCardClick: this.handleCardClick,
+          replaceBrokenSuperhero: this.replaceBrokenSuperhero,
+          handleDragStart: this.handleDragStart,
+          handleDragOver: this.handleDragOver,
+          handleDrop: this.handleDrop,
+          handleCheckButtonClick: this.handleCheckButtonClick,
+          startNewGame: this.startNewGame,
+        }}
+      />
+    );
   }
 }

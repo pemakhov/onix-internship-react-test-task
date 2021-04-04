@@ -1,18 +1,10 @@
 import React from "react";
 
 export function CurrentStageView(props) {
-  const { daysToMeeting, stages } = props;
+  const { announce, stages } = props;
   const projectInfoHeader = "інформація про поточний етап";
   const topicHeader = "Тема:";
   const taskHeader = "Завдання:";
-  const daysWordWithProperEnding =
-    daysToMeeting > 4 ? "днів" : daysToMeeting > 1 ? "дні" : "день";
-
-  const projectInfoQuote =
-    daysToMeeting === 0
-      ? `До зустрічі ${daysToMeeting} ${daysWordWithProperEnding}`
-      : "Зустріч сьогодні";
-  
   const currentStageNumber = stages.length - 1;
   const currentStage = stages[currentStageNumber];
   const projectInfoArticleHeader = (
@@ -26,7 +18,7 @@ export function CurrentStageView(props) {
       <h2>{projectInfoHeader}</h2>
       <div className="article">
         <div className="article__image">
-          <p>{projectInfoQuote}</p>
+          <p>{announce}</p>
         </div>
         <div className="article__content">
           <h3>{projectInfoArticleHeader}</h3>

@@ -39,7 +39,7 @@ export function SuperheroGameView(props) {
         }}
         handleButtonClick={handlers.handleCheckButtonClick}
         replaceBrokenSuperhero={handlers.replaceBrokenSuperhero}
-        initNewGame={handlers.initNewGame}
+        startNewGame={handlers.startNewGame}
       />
     );
   }

@@ -21,7 +21,7 @@ export function PanelView(props) {
         chosen={chosen}
         gameOver={gameOver}
         handleButtonClick={props.handleButtonClick}
-        initNewGame={props.initNewGame}
+        startNewGame={props.startNewGame}
       />
       {superheroInfo}
     </div>
