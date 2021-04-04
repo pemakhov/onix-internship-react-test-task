@@ -1,6 +1,6 @@
-# Lessson 7
+# Lessson 8
 
-## JS basics. Events.
+## React basics. React components. Pure functions.
 
-Guess a superhero game
+Guess a superhero game.
 

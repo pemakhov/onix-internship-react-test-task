@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import CustomMath from "../../service/CustomMath";
-import { Board } from "./Board";
-import { Panel } from "./Panel";
-import "./SuperheroGame.css";
+import { SuperheroGameView } from "./SuperheroGameView";
 
 export class SuperheroGame extends Component {
   initialState = {
@@ -58,7 +56,7 @@ export class SuperheroGame extends Component {
   };
 
   replaceBrokenSuperhero = (n) => {
-    alert("Некоторые данные супергероя не загрузились и герой будет заменен");
+    alert("Де-які дані супергероя не завантажились і супергерой буде замінений");
 
     if (this.state.reserve.length === 0) {
       return;
@@ -216,55 +214,24 @@ export class SuperheroGame extends Component {
   }
 
   render() {
-    let board = null,
-      panel = null,
-      errorMessage = null;
-
-    if (this.state.loaded && !this.state.apiError) {
-      board = (
-        <Board
-          superheros={this.state.superheros}
-          gameState={{
-            chosen: this.state.chosen,
-            active: this.state.active,
-            gameOver: this.state.gameOver,
-          }}
-          handleClick={this.handleCardClick}
-          replaceBrokenSuperhero={this.replaceBrokenSuperhero}
-          handleDragStart={this.handleDragStart}
-          handleDragOver={this.handleDragOver}
-          handleDrop={this.handleDrop}
-        />
-      );
-
-      panel = (
-        <Panel
-          gameState={{
-            chosen: this.state.chosen,
-            active: this.state.active,
-            gameOver: this.state.gameOver,
-          }}
-          superheros={this.state.superheros}
-          handleButtonClick={this.handleCheckButtonClick}
-          replaceBrokenSuperhero={this.replaceBrokenSuperhero}
-          initNewGame={this.init}
-        />
-      );
-    }
-
-    if (this.state.apiError) {
-      errorMessage = <h3>Произошла ошибка загрузки данных.</h3>;
-    }
-
-    return (
-      <section>
-        <h2>Хорошо ли ты знаешь супергероев?</h2>
-        {errorMessage}
-        <div id="superhero-game">
-          {board}
-          {panel}
-        </div>
-      </section>
-    );
+    return <SuperheroGameView
+      superheros={this.state.superheros}
+      gameState={{
+        chosen: this.state.chosen,
+        active: this.state.active,
+        gameOver: this.state.gameOver,
+        loaded: this.state.loaded,
+        apiError: this.state.apiError,
+      }}
+      handlers={{
+        handleCardClick: this.handleCardClick,
+        replaceBrokenSuperhero: this.replaceBrokenSuperhero,
+        handleDragStart: this.handleDragStart,
+        handleDragOver: this.handleDragOver,
+        handleDrop: this.handleDrop,
+        handleCheckButtonClick: this.handleCheckButtonClick,
+        initNewGame: this.init,
+      }}
+    />;
   }
 }

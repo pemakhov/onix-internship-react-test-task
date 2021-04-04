@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "./Button";
+import { Button } from "../../page-elements/Button";
 
 export function ControlArea(props) {
   const getContent = (active, gameOver) => {

@@ -3,14 +3,9 @@ import { Superhero } from "./Superhero";
 import { ControlArea } from "./ControlArea";
 import { InfoArea } from "./InfoArea";
 
-export function Panel(props) {
+export function PanelView(props) {
   const { active, chosen, gameOver } = props.gameState;
-  const chosenSuperhero = props.superheros[chosen];
-
-  if (!chosenSuperhero?.name) {
-    props.replaceBrokenSuperhero(chosen);
-  }
-
+  const { chosenSuperhero } = props;
   const superheroInfo = gameOver ? <Superhero data={chosenSuperhero} /> : null;
 
   return (
