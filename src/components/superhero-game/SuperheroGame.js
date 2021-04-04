@@ -50,8 +50,6 @@ export class SuperheroGame extends Component {
   };
 
   handleCheckButtonClick = () => {
-    if (this.state.active === this.state.chosen) {
-    }
     this.setState({ gameOver: true });
   };
 
@@ -74,7 +72,13 @@ export class SuperheroGame extends Component {
 
   addKeyboardControl() {
     const handleKeyDown = (event) => {
-      const arrowKeys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
+      const arrowKeys = [
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown",
+        "Enter",
+      ];
 
       if (!arrowKeys.includes(event.key)) {
         return;
@@ -94,6 +98,13 @@ export class SuperheroGame extends Component {
       let nextActive = 0;
 
       switch (event.key) {
+        case "Enter":
+          if (this.state.active !== null && !this.state.gameOver) {
+            this.setState({ gameOver: true });
+            return;
+          }
+          break;
+
         case "ArrowLeft":
           nextActive =
             (this.state.active + this.SUPERHEROS_TO_SHOW - 1) %
@@ -135,7 +146,6 @@ export class SuperheroGame extends Component {
   };
 
   updateChosenIndex = (x, y, chosen) => {
-
     if (chosen !== x && chosen !== y) {
       return chosen;
     }

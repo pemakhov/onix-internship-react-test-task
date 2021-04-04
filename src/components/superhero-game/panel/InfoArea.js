@@ -7,16 +7,16 @@ export function InfoArea(props) {
     if (!gameOver) {
       return (
         <>
-          Кто тут <strong>{chosenSuperhero?.name}?</strong>
+          Хто тут <strong>{chosenSuperhero?.name}?</strong>
         </>
       );
     }
 
     if (active === chosen) {
-      return <strong>Что ж, на этот раз правильно.</strong>;
+      return <strong>Що ж, цього разу вірно.</strong>;
     }
 
-    return <strong>Ну нет же!</strong>
+    return <strong>Та ну ні!</strong>
   };
 
   const content = getInfo(active, chosen, gameOver);
