@@ -125,25 +125,22 @@ export class SuperheroGame extends Component {
     window.addEventListener("keydown", handleKeyDown);
   }
 
-  replaceTwoSuperheros = (x, y) => {
-    const updatedSuperheros = [...this.state.superheros];
+  replaceTwoSuperheros = (x, y, superheros) => {
+    const updatedSuperheros = [...superheros];
     const superheroX = updatedSuperheros[x];
     updatedSuperheros[x] = updatedSuperheros[y];
     updatedSuperheros[y] = superheroX;
 
-    this.setState({ superheros: updatedSuperheros });
+    return updatedSuperheros;
   };
 
-  updateChosenIndex = (x, y) => {
-    const { chosen } = this.state;
+  updateChosenIndex = (x, y, chosen) => {
 
     if (chosen !== x && chosen !== y) {
-      return;
+      return chosen;
     }
 
-    const newIndex = chosen === x ? y : x;
-
-    this.setState({ chosen: newIndex });
+    return chosen === x ? y : x;
   };
 
   handleDragStart = (event) => {
@@ -176,8 +173,19 @@ export class SuperheroGame extends Component {
     const sourceKey = parseInt(event.dataTransfer.getData("text/plain"));
     const targetKey = parseInt(event.target.getAttribute("data-key"));
 
-    this.replaceTwoSuperheros(sourceKey, targetKey);
-    this.updateChosenIndex(sourceKey, targetKey);
+    const updatedSuperheros = this.replaceTwoSuperheros(
+      sourceKey,
+      targetKey,
+      this.state.superheros
+    );
+
+    const updatedChosen = this.updateChosenIndex(
+      sourceKey,
+      targetKey,
+      this.state.chosen
+    );
+
+    this.setState({ superheros: updatedSuperheros, chosen: updatedChosen });
   };
 
   /**
@@ -220,7 +228,7 @@ export class SuperheroGame extends Component {
 
   startNewGame = () => {
     this.setState({ gameOver: false });
-  }
+  };
 
   componentDidMount() {
     this.init();
