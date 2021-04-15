@@ -1,8 +1,8 @@
-import "./App.css";
-import { Header } from "./components/header/Header";
-import { Footer } from "./components/footer/Footer";
-import { CurrentStage } from "./components/current-stage/CurrentStage";
-import { SuperheroGame } from "./components/superhero-game/SuperheroGame";
+import "./App.scss";
+import { Header } from "./layout/header/Header";
+import { Footer } from "./layout/footer/Footer";
+import { CurrentStage } from "./pages/home/current-stage/CurrentStage";
+import SuperheroGame from "./pages/home/superhero-game/SuperheroGame";
 
 function App() {
   const anchorText = "Anchor";

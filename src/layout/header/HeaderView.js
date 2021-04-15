@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../page-elements/Button";
+import Button from "../../components/button/Button";
 
 export function HeaderView(props) {
   const logo = "react.";

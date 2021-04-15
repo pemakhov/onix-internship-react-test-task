@@ -1,7 +1,7 @@
 import React from "react";
 import "./Board.css";
 
-export function BoardView(props) {
+export default function BoardView(props) {
   const { cards } = props;
   const row0 = cards.slice(0, 3);
   const row1 = cards.slice(3, 6);

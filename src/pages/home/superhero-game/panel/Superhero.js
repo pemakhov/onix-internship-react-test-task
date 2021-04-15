@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Superhero(props) {
+export default function Superhero(props) {
   const { data } = props;
   const { name } = data || "classified";
   const { alignment } = data.biography || "classified";

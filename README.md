@@ -1,6 +1,6 @@
-# Lessson 8
+# Lessson 9
 
-## React basics. React components. Pure functions.
+## React basics. Virtual DOM and HOC
 
-Guess a superhero game.
-
+Implemented two languages in the Superhero Game.
+It doesn't update in the game header. I don't know why yet.

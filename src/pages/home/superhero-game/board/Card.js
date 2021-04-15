@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Card(props) {
+export default function Card(props) {
   return (
     <div
       draggable={true}

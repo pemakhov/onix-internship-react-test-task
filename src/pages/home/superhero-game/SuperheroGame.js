@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import CustomMath from "../../service/CustomMath";
-import { SuperheroGameView } from "./SuperheroGameView";
+import CustomMath from "../../../service/CustomMath";
+import SuperheroGameView from "./SuperheroGameView";
+import withTranslation from "./withTranslation";
+import getTranslation from "./translations";
 
-export class SuperheroGame extends Component {
+export default class SuperheroGame extends Component {
   initialState = {
     superheros: [],
     reserve: [],
@@ -11,6 +13,7 @@ export class SuperheroGame extends Component {
     gameOver: false,
     loaded: false,
     apiError: null,
+    language: "ua", // "ua" or "en"
   };
 
   constructor(props) {
@@ -51,6 +54,13 @@ export class SuperheroGame extends Component {
 
   handleCheckButtonClick = () => {
     this.setState({ gameOver: true });
+  };
+
+  toggleLanguage = () => {
+    this.setState((prevState) => {
+      const newLanguage = prevState.language === "ua" ? "en" : "ua";
+      return { language: newLanguage };
+    });
   };
 
   replaceBrokenSuperhero = (n) => {
@@ -107,12 +117,14 @@ export class SuperheroGame extends Component {
 
         case "ArrowLeft":
           nextActive =
-            (this.state.active + this.SUPERHEROS_TO_SHOW - 1) %
-            this.SUPERHEROS_TO_SHOW;
+            ((this.state.active + 3 - 1) % 3) +
+            Math.floor(this.state.active / 3) * 3;
           break;
 
         case "ArrowRight":
-          nextActive = (this.state.active + 1) % this.SUPERHEROS_TO_SHOW;
+          nextActive =
+            ((this.state.active + 3 + 1) % 3) +
+            Math.floor(this.state.active / 3) * 3;
           break;
 
         case "ArrowUp":
@@ -254,9 +266,14 @@ export class SuperheroGame extends Component {
     this.init();
   }
 
+  SuperheroGameViewWithTranslation = withTranslation(SuperheroGameView, () =>
+    getTranslation(this.state.language, "SuperheroGameView")
+  );
+
   render() {
     return (
-      <SuperheroGameView
+      <this.SuperheroGameViewWithTranslation
+        language={this.state.language}
         superheros={this.state.superheros}
         gameState={{
           chosen: this.state.chosen,
@@ -273,6 +290,7 @@ export class SuperheroGame extends Component {
           handleDrop: this.handleDrop,
           handleCheckButtonClick: this.handleCheckButtonClick,
           startNewGame: this.startNewGame,
+          toggleLanguage: this.toggleLanguage,
         }}
       />
     );

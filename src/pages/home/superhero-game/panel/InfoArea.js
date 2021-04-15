@@ -1,22 +1,23 @@
 import React from "react";
 
-export function InfoArea(props) {
+export default function InfoArea(props) {
   const { active, chosen, gameOver, chosenSuperhero } = props;
+  const { task = "", successReport = "", failedReport = "" } = props.translation;
 
   const getInfo = (active, chosen, gameOver) => {
     if (!gameOver) {
       return (
         <>
-          Хто тут <strong>{chosenSuperhero?.name}?</strong>
+          {task} <strong>{chosenSuperhero?.name}?</strong>
         </>
       );
     }
 
     if (active === chosen) {
-      return <strong>Що ж, цього разу вірно.</strong>;
+      return <strong>{successReport}</strong>;
     }
 
-    return <strong>Та ну ні!</strong>
+    return <strong>{failedReport}</strong>
   };
 
   const content = getInfo(active, chosen, gameOver);

@@ -1,7 +1,7 @@
 import React from "react";
-import { PanelView } from "./PanelView";
+import PanelView from "./PanelView";
 
-export function Panel(props) {
+export default function Panel(props) {
   const { chosen } = props.gameState;
   const chosenSuperhero = props.superheros[chosen];
 
@@ -11,6 +11,7 @@ export function Panel(props) {
 
   return (
     <PanelView
+      language={props.language}
       gameState={props.gameState}
       chosenSuperhero={chosenSuperhero}
       handleButtonClick={props.handleButtonClick}

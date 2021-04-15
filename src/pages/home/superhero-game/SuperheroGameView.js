@@ -1,10 +1,12 @@
 import React from "react";
-import { Board } from "./board/Board";
-import { Panel } from "./panel/Panel";
+import Board from "./board/Board";
+import Panel from "./panel/Panel";
+import Button from "../../../components/button/Button";
 import "./SuperheroGame.css";
 
-export function SuperheroGameView(props) {
-  const { superheros, gameState, handlers } = props;
+export default function SuperheroGameView(props) {
+  const { language, superheros, gameState, handlers } = props;
+  const { downloadError = "", gameHeader = "" } = props.translation; // It doesn't update here, I don't know why
 
   let board = null,
     panel = null,
@@ -31,6 +33,7 @@ export function SuperheroGameView(props) {
 
     panel = (
       <Panel
+        language={language}
         superheros={superheros}
         gameState={{
           chosen: gameState.chosen,
@@ -45,13 +48,14 @@ export function SuperheroGameView(props) {
   }
 
   if (gameState.apiError) {
-    errorMessage = <h3>Помилка завантаження даних</h3>;
+    errorMessage = <h3>{downloadError}</h3>;
   }
-
-  const gameHeader = "Чи ти добре знаєш супергероїв?";
 
   return (
     <section>
+      <h2>
+        <Button value={language} onClick={handlers.toggleLanguage} />
+      </h2>
       <h2>{gameHeader}</h2>
       {errorMessage}
       <div id="superhero-game">

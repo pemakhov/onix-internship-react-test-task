@@ -1,8 +1,8 @@
 import React from "react";
-import { Card } from "./Card";
-import { BoardView } from "./BoardView";
+import Card from "./Card";
+import BoardView from "./BoardView";
 
-export function Board(props) {
+export default function Board(props) {
   const { superheros, gameState, handlers } = props;
 
   const getCardClassList = (index, gameState) => {
