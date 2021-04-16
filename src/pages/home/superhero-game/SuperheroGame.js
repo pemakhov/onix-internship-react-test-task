@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import CustomMath from "../../../service/CustomMath";
-import SuperheroGameView from "./SuperheroGameView";
-import withTranslation from "./withTranslation";
-import getTranslation from "./translations";
+import SuperheroGameViewWithTranslation from "./SuperheroGameView";
 
 export default class SuperheroGame extends Component {
   initialState = {
@@ -266,13 +264,9 @@ export default class SuperheroGame extends Component {
     this.init();
   }
 
-  SuperheroGameViewWithTranslation = withTranslation(SuperheroGameView, () =>
-    getTranslation(this.state.language, "SuperheroGameView")
-  );
-
   render() {
     return (
-      <this.SuperheroGameViewWithTranslation
+      <SuperheroGameViewWithTranslation
         language={this.state.language}
         superheros={this.state.superheros}
         gameState={{

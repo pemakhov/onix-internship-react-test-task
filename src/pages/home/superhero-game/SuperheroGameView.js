@@ -2,11 +2,12 @@ import React from "react";
 import Board from "./board/Board";
 import Panel from "./panel/Panel";
 import Button from "../../../components/button/Button";
+import withTranslation from "./withTranslation";
 import "./SuperheroGame.css";
 
-export default function SuperheroGameView(props) {
-  const { language, superheros, gameState, handlers } = props;
-  const { downloadError = "", gameHeader = "" } = props.translation; // It doesn't update here, I don't know why
+function SuperheroGameView(props) {
+  const { language, getTranslation, superheros, gameState, handlers } = props;
+  const { downloadError = "", gameHeader = "" } = getTranslation(language, "SuperheroGameView");
 
   let board = null,
     panel = null,
@@ -65,3 +66,5 @@ export default function SuperheroGameView(props) {
     </section>
   );
 }
+
+export default withTranslation(SuperheroGameView);
