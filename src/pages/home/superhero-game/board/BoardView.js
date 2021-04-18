@@ -1,5 +1,6 @@
-import React from "react";
-import "./Board.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import './Board.css';
 
 export default function BoardView(props) {
   const { cards } = props;
@@ -15,3 +16,12 @@ export default function BoardView(props) {
     </div>
   );
 }
+
+BoardView.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  cards: PropTypes.any,
+};
+
+BoardView.defaultProps = {
+  cards: [],
+};

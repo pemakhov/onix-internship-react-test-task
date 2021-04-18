@@ -1,17 +1,23 @@
-import React from "react";
-import Board from "./board/Board";
-import Panel from "./panel/Panel";
-import Button from "../../../components/button/Button";
-import withTranslation from "./withTranslation";
-import "./SuperheroGame.css";
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
+import PropTypes from 'prop-types';
+import Board from './board/Board';
+import Panel from './panel/Panel';
+import Button from '../../../components/button/Button';
+import withTranslation from './withTranslation';
+import './SuperheroGame.css';
 
 function SuperheroGameView(props) {
+  // eslint-disable-next-line object-curly-newline
   const { language, getTranslation, superheros, gameState, handlers } = props;
-  const { downloadError = "", gameHeader = "" } = getTranslation(language, "SuperheroGameView");
+  const { downloadError = '', gameHeader = '' } = getTranslation(
+    language,
+    'SuperheroGameView'
+  );
 
-  let board = null,
-    panel = null,
-    errorMessage = null;
+  let board = null;
+  let panel = null;
+  let errorMessage = null;
 
   if (gameState.loaded && !gameState.apiError) {
     board = (
@@ -66,5 +72,21 @@ function SuperheroGameView(props) {
     </section>
   );
 }
+
+SuperheroGameView.propTypes = {
+  language: PropTypes.string,
+  superheros: PropTypes.any,
+  getTranslation: PropTypes.func,
+  gameState: PropTypes.any,
+  handlers: PropTypes.any
+};
+
+SuperheroGameView.defaultProps = {
+  language: '',
+  superheros: [],
+  getTranslation: () => [],
+  gameState: {},
+  handlers: {},
+};
 
 export default withTranslation(SuperheroGameView);

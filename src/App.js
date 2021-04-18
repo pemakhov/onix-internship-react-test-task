@@ -1,11 +1,12 @@
-import "./App.scss";
-import { Header } from "./layout/header/Header";
-import { Footer } from "./layout/footer/Footer";
-import { CurrentStage } from "./pages/home/current-stage/CurrentStage";
-import SuperheroGame from "./pages/home/superhero-game/SuperheroGame";
+import React from 'react';
+import './App.scss';
+import Header from './layout/header/Header';
+import Footer from './layout/footer/Footer';
+import CurrentStage from './pages/home/current-stage/CurrentStage';
+import SuperheroGame from './pages/home/superhero-game/SuperheroGame';
 
 function App() {
-  const anchorText = "Anchor";
+  const anchorText = 'Anchor';
 
   return (
     <>

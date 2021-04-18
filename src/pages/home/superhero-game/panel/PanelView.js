@@ -1,11 +1,19 @@
-import React from "react";
-import Superhero from "./Superhero";
-import ControlAreaWithTranslation from "./ControlArea";
-import InfoAreaWithTranslation from "./InfoArea";
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
+import PropTypes from 'prop-types';
+import Superhero from './Superhero';
+import ControlAreaWithTranslation from './ControlArea';
+import InfoAreaWithTranslation from './InfoArea';
 
 export default function PanelView(props) {
-  const { active, chosen, gameOver } = props.gameState;
-  const { chosenSuperhero, language } = props;
+  const {
+    chosenSuperhero,
+    language,
+    gameState,
+    handleButtonClick,
+    startNewGame,
+  } = props;
+  const { active, chosen, gameOver } = gameState;
   const superheroInfo = gameOver ? <Superhero data={chosenSuperhero} /> : null;
 
   return (
@@ -22,10 +30,26 @@ export default function PanelView(props) {
         active={active}
         chosen={chosen}
         gameOver={gameOver}
-        handleButtonClick={props.handleButtonClick}
-        startNewGame={props.startNewGame}
+        handleButtonClick={handleButtonClick}
+        startNewGame={startNewGame}
       />
       {superheroInfo}
     </div>
   );
 }
+
+PanelView.propTypes = {
+  chosenSuperhero: PropTypes.any,
+  language: PropTypes.string,
+  gameState: PropTypes.any,
+  handleButtonClick: PropTypes.func,
+  startNewGame: PropTypes.func,
+};
+
+PanelView.defaultProps = {
+  chosenSuperhero: {},
+  language: '',
+  gameState: {},
+  handleButtonClick: () => {},
+  startNewGame: () => {},
+};

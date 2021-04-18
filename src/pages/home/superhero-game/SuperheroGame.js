@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import CustomMath from "../../../service/CustomMath";
-import SuperheroGameViewWithTranslation from "./SuperheroGameView";
+import React, { Component } from 'react';
+import CustomMath from '../../../service/CustomMath';
+import SuperheroGameViewWithTranslation from './SuperheroGameView';
 
 export default class SuperheroGame extends Component {
   initialState = {
@@ -11,19 +11,41 @@ export default class SuperheroGame extends Component {
     gameOver: false,
     loaded: false,
     apiError: null,
-    language: "ua", // "ua" or "en"
+    language: 'ua', // "ua" or "en"
   };
+
+  URL = 'https://www.superheroapi.com/api.php/10159321593748921/';
+
+  MIN_ID = 1;
+
+  MAX_ID = 731;
+
+  SUPERHEROS_TO_SHOW = 9;
+
+  RESERVE_OF_SUPERHEROS = 5;
 
   constructor(props) {
     super(props);
     this.state = this.initialState;
   }
 
-  URL = "https://www.superheroapi.com/api.php/10159321593748921/";
-  MIN_ID = 1;
-  MAX_ID = 731;
-  SUPERHEROS_TO_SHOW = 9;
-  RESERVE_OF_SUPERHEROS = 5;
+  componentDidMount() {
+    this.init();
+    this.addKeyboardControl();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { gameOver } = this.state;
+
+    if (!(prevState.gameOver && !gameOver)) {
+      return;
+    }
+
+    // TODO: Solve this issue
+    // eslint-disable-next-line react/no-did-update-set-state
+    this.setState(this.initialState);
+    this.init();
+  }
 
   async getOneSuperhero(url) {
     const response = await fetch(url);
@@ -37,14 +59,16 @@ export default class SuperheroGame extends Component {
       return this.getOneSuperhero(url);
     });
 
-    return await Promise.all(superheroPromises);
+    return Promise.all(superheroPromises);
   }
 
   handleCardClick = (i) => {
-    if (this.state.gameOver) {
+    const { gameOver, active } = this.state;
+
+    if (gameOver) {
       return;
     }
-    if (this.state.active === i) {
+    if (active === i) {
       return;
     }
     this.setState({ active: i });
@@ -56,95 +80,30 @@ export default class SuperheroGame extends Component {
 
   toggleLanguage = () => {
     this.setState((prevState) => {
-      const newLanguage = prevState.language === "ua" ? "en" : "ua";
+      const newLanguage = prevState.language === 'ua' ? 'en' : 'ua';
       return { language: newLanguage };
     });
   };
 
   replaceBrokenSuperhero = (n) => {
+    const { superheros, reserve } = this.state;
+
+    // eslint-disable-next-line no-alert
     alert(
-      "Де-які дані супергероя не завантажились і супергерой буде замінений"
+      'Де-які дані супергероя не завантажились і супергерой буде замінений'
     );
 
-    if (this.state.reserve.length === 0) {
+    if (reserve.length === 0) {
       return;
     }
 
-    const updatedSuperheros = [...this.state.superheros];
-    const updatedReserve = [...this.state.reserve];
+    const updatedSuperheros = [...superheros];
+    const updatedReserve = [...reserve];
 
     updatedSuperheros[n] = updatedReserve.pop();
 
     this.setState({ superheros: updatedSuperheros, reserve: updatedReserve });
   };
-
-  addKeyboardControl() {
-    const handleKeyDown = (event) => {
-      const arrowKeys = [
-        "ArrowLeft",
-        "ArrowRight",
-        "ArrowUp",
-        "ArrowDown",
-        "Enter",
-      ];
-
-      if (!arrowKeys.includes(event.key)) {
-        return;
-      }
-
-      event.preventDefault();
-
-      if (this.state.gameOver) {
-        return;
-      }
-
-      if (this.state.active === null) {
-        this.setState({ active: 0 });
-        return;
-      }
-
-      let nextActive = 0;
-
-      switch (event.key) {
-        case "Enter":
-          if (this.state.active !== null && !this.state.gameOver) {
-            this.setState({ gameOver: true });
-            return;
-          }
-          break;
-
-        case "ArrowLeft":
-          nextActive =
-            ((this.state.active + 3 - 1) % 3) +
-            Math.floor(this.state.active / 3) * 3;
-          break;
-
-        case "ArrowRight":
-          nextActive =
-            ((this.state.active + 3 + 1) % 3) +
-            Math.floor(this.state.active / 3) * 3;
-          break;
-
-        case "ArrowUp":
-          nextActive =
-            (this.state.active + this.SUPERHEROS_TO_SHOW - 3) %
-            this.SUPERHEROS_TO_SHOW;
-          break;
-
-        case "ArrowDown":
-          nextActive = (this.state.active + 3) % this.SUPERHEROS_TO_SHOW;
-          break;
-
-        default:
-          console.log("something went wrong");
-      }
-
-      this.setState({ active: nextActive });
-    };
-
-    window.removeEventListener("keydown", handleKeyDown);
-    window.addEventListener("keydown", handleKeyDown);
-  }
 
   replaceTwoSuperheros = (x, y, superheros) => {
     const updatedSuperheros = [...superheros];
@@ -164,46 +123,49 @@ export default class SuperheroGame extends Component {
   };
 
   handleDragStart = (event) => {
-    if (this.state.gameOver) {
+    const { gameOver } = this.state;
+
+    if (gameOver) {
       return;
     }
 
     event.dataTransfer.setData(
-      "text/plain",
-      event.target.getAttribute("data-key")
+      'text/plain',
+      event.target.getAttribute('data-key')
     );
-    event.dataTransfer.effectAllowed = "move";
+
+    // eslint-disable-next-line no-param-reassign
+    event.dataTransfer.effectAllowed = 'move';
   };
 
   handleDragOver = (event) => {
-    if (this.state.gameOver) {
+    const { gameOver } = this.state;
+    if (gameOver) {
       return;
     }
 
     event.preventDefault();
-    event.dataTransfer.dropEffect = "move";
+    // eslint-disable-next-line no-param-reassign
+    event.dataTransfer.dropEffect = 'move';
   };
 
   handleDrop = (event) => {
-    if (this.state.gameOver) {
+    const { gameOver, superheros, chosen } = this.state;
+    if (gameOver) {
       return;
     }
 
     event.preventDefault();
-    const sourceKey = parseInt(event.dataTransfer.getData("text/plain"));
-    const targetKey = parseInt(event.target.getAttribute("data-key"));
+    const sourceKey = parseInt(event.dataTransfer.getData('text/plain'));
+    const targetKey = parseInt(event.target.getAttribute('data-key'));
 
     const updatedSuperheros = this.replaceTwoSuperheros(
       sourceKey,
       targetKey,
-      this.state.superheros
+      superheros
     );
 
-    const updatedChosen = this.updateChosenIndex(
-      sourceKey,
-      targetKey,
-      this.state.chosen
-    );
+    const updatedChosen = this.updateChosenIndex(sourceKey, targetKey, chosen);
 
     this.setState({ superheros: updatedSuperheros, chosen: updatedChosen });
   };
@@ -223,11 +185,11 @@ export default class SuperheroGame extends Component {
     try {
       const superheros = await this.getSuperherosByIdList(idList);
       const failures = superheros
-        .map((superhero) => superhero?.response === "error")
+        .map((superhero) => superhero?.response === 'error')
         .filter((x) => x);
 
       if (failures.length > 2) {
-        throw new Error("Failed to load too many superheros");
+        throw new Error('Failed to load too many superheros');
       }
 
       this.setState({
@@ -250,31 +212,93 @@ export default class SuperheroGame extends Component {
     this.setState({ gameOver: false });
   };
 
-  componentDidMount() {
-    this.init();
-    this.addKeyboardControl();
-  }
+  addKeyboardControl() {
+    const { gameOver, active } = this.state;
+    const handleKeyDown = (event) => {
+      const arrowKeys = [
+        'ArrowLeft',
+        'ArrowRight',
+        'ArrowUp',
+        'ArrowDown',
+        'Enter',
+      ];
 
-  componentDidUpdate(prevProps, prevState) {
-    if (!(prevState.gameOver && !this.state.gameOver)) {
-      return;
-    }
+      if (!arrowKeys.includes(event.key)) {
+        return;
+      }
 
-    this.setState(this.initialState);
-    this.init();
+      event.preventDefault();
+
+      if (gameOver) {
+        return;
+      }
+
+      if (active === null) {
+        this.setState({ active: 0 });
+        return;
+      }
+
+      let nextActive = 0;
+
+      switch (event.key) {
+        case 'Enter':
+          if (active !== null && !gameOver) {
+            this.setState({ gameOver: true });
+            return;
+          }
+          break;
+
+        case 'ArrowLeft':
+          nextActive = ((active + 3 - 1) % 3) + Math.floor(active / 3) * 3;
+          break;
+
+        case 'ArrowRight':
+          nextActive = ((active + 3 + 1) % 3) + Math.floor(active / 3) * 3;
+          break;
+
+        case 'ArrowUp':
+          // eslint-disable-next-line operator-linebreak
+          nextActive =
+            (active + this.SUPERHEROS_TO_SHOW - 3) % this.SUPERHEROS_TO_SHOW;
+          break;
+
+        case 'ArrowDown':
+          nextActive = (active + 3) % this.SUPERHEROS_TO_SHOW;
+          break;
+
+        default:
+          // eslint-disable-next-line no-console
+          console.log('something went wrong');
+      }
+
+      this.setState({ active: nextActive });
+    };
+
+    window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
   }
 
   render() {
+    const {
+      language,
+      superheros,
+      chosen,
+      active,
+      gameOver,
+      loaded,
+      apiError,
+    } = this.state;
+
     return (
       <SuperheroGameViewWithTranslation
-        language={this.state.language}
-        superheros={this.state.superheros}
+        language={language}
+        superheros={superheros}
         gameState={{
-          chosen: this.state.chosen,
-          active: this.state.active,
-          gameOver: this.state.gameOver,
-          loaded: this.state.loaded,
-          apiError: this.state.apiError,
+          chosen,
+          active,
+          gameOver,
+          loaded,
+          apiError,
         }}
         handlers={{
           handleCardClick: this.handleCardClick,

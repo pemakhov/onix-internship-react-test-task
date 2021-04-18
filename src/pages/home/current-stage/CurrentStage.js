@@ -1,28 +1,40 @@
-import React from "react";
-import { stages } from "./Stages";
-import { CurrentStageView } from "./CurrentStageView";
+import React from 'react';
+import Stages from './Stages';
+import CurrentStageView from './CurrentStageView';
 
-export class CurrentStage extends React.Component {
-  state = {
-    stages: stages,
-    meetingDayNumber: 6,
+export default class CurrentStage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      stages: Stages,
+      meetingDayNumber: 6,
+    };
+  }
+
+  getDaysWord = (dayNumber) => {
+    switch (true) {
+      case dayNumber > 4:
+        return 'днів';
+      case dayNumber > 1:
+        return 'дні';
+      case dayNumber === 1:
+        return 'день';
+      default:
+        return 'днів';
+    }
   };
 
   render() {
-    const daysToMeeting = this.state.meetingDayNumber - new Date().getDay();
-    const daysWordWithProperEnding =
-      daysToMeeting > 4 ? "днів" : daysToMeeting > 1 ? "дні" : "день";
+    const { meetingDayNumber, stages } = this.state;
+    const daysToMeeting = meetingDayNumber - new Date().getDay();
+    const daysWordWithProperEnding = this.getDaysWord(daysToMeeting);
 
+    // eslint-disable-next-line operator-linebreak
     const announce =
       daysToMeeting === 0
-        ? "Зустріч сьогодні"
+        ? 'Зустріч сьогодні'
         : `До зустрічі ${daysToMeeting} ${daysWordWithProperEnding}`;
 
-    return (
-      <CurrentStageView
-        announce={announce}
-        stages={this.state.stages}
-      />
-    );
+    return <CurrentStageView announce={announce} stages={stages} />;
   }
 }

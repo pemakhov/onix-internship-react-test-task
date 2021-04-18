@@ -1,10 +1,12 @@
-import React from "react";
+/* eslint-disable react/jsx-one-expression-per-line */
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export function CurrentStageView(props) {
+export default function CurrentStageView(props) {
   const { announce, stages } = props;
-  const projectInfoHeader = "інформація про поточний етап";
-  const topicHeader = "Тема:";
-  const taskHeader = "Завдання:";
+  const projectInfoHeader = 'інформація про поточний етап';
+  const topicHeader = 'Тема:';
+  const taskHeader = 'Завдання:';
   const currentStageNumber = stages.length - 1;
   const currentStage = stages[currentStageNumber];
   const projectInfoArticleHeader = (
@@ -22,7 +24,7 @@ export function CurrentStageView(props) {
         </div>
         <div className="article__content">
           <h3>{projectInfoArticleHeader}</h3>
-          <div className="divider"></div>
+          <div className="divider" />
           <h4>{topicHeader}</h4>
           <p>{currentStage.topic}</p>
           <h4>{taskHeader}</h4>
@@ -32,3 +34,14 @@ export function CurrentStageView(props) {
     </section>
   );
 }
+
+CurrentStageView.propTypes = {
+  announce: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  stages: PropTypes.any,
+};
+
+CurrentStageView.defaultProps = {
+  announce: 'Can\'t provide the announce',
+  stages: {},
+};

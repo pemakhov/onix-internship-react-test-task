@@ -1,32 +1,57 @@
-import React from "react";
-import Button from "../../../../components/button/Button";
-import withTranslation from "../withTranslation";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Button from '../../../../components/button/Button';
+import withTranslation from '../withTranslation';
 
 function ControlArea(props) {
-  const { language, getTranslation } = props;
   const {
-    task = "",
-    newGameButtonText = "",
-    checkButtonText = "",
-  } = getTranslation(language, "ControlArea");
+    language,
+    active,
+    gameOver,
+    getTranslation,
+    startNewGame,
+    handleButtonClick,
+  } = props;
 
-  const getContent = (active, gameOver) => {
-    if (gameOver) {
-      return <Button onClick={props.startNewGame} value={newGameButtonText} />;
+  const {
+    task = '',
+    newGameButtonText = '',
+    checkButtonText = '',
+  } = getTranslation(language, 'ControlArea');
+
+  const getContent = (activeProp, gameOverProp) => {
+    if (gameOverProp) {
+      return <Button onClick={startNewGame} value={newGameButtonText} />;
     }
 
-    if (active !== null) {
-      return (
-        <Button onClick={props.handleButtonClick} value={checkButtonText} />
-      );
+    if (activeProp !== null) {
+      return <Button onClick={handleButtonClick} value={checkButtonText} />;
     }
 
     return <>{task}</>;
   };
 
-  const content = getContent(props.active, props.gameOver);
+  const content = getContent(active, gameOver);
 
   return <div className="control-area">{content}</div>;
 }
+
+ControlArea.propTypes = {
+  language: PropTypes.string,
+  active: PropTypes.number,
+  gameOver: PropTypes.bool,
+  getTranslation: PropTypes.func,
+  startNewGame: PropTypes.func,
+  handleButtonClick: PropTypes.func,
+};
+
+ControlArea.defaultProps = {
+  language: '',
+  active: 0,
+  gameOver: false,
+  getTranslation: () => {},
+  startNewGame: () => {},
+  handleButtonClick: () => {},
+};
 
 export default withTranslation(ControlArea);

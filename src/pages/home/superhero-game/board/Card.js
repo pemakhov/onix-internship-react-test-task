@@ -1,23 +1,59 @@
-import React from "react";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function Card(props) {
+  const {
+    classList,
+    index,
+    handleClick,
+    handleDragStart,
+    handleDragOver,
+    handleDrop,
+    replaceBrokenSuperhero,
+    url,
+  } = props;
+
   return (
     <div
-      draggable={true}
-      className={props.classList}
-      data-key={props.index}
-      onClick={() => props.handleClick()}
-      onDragStart={props.handleDragStart}
-      onDragOverCapture={props.handleDragOver}
-      onDropCapture={props.handleDrop}
+      draggable
+      className={classList}
+      data-key={index}
+      onClick={() => handleClick()}
+      onDragStart={handleDragStart}
+      onDragOverCapture={handleDragOver}
+      onDropCapture={handleDrop}
     >
       <img
         draggable="false"
-        onError={props.replaceBrokenSuperhero}
-        src={props.url}
+        onError={replaceBrokenSuperhero}
+        src={url}
         alt="classified"
-        data-key={props.index}
-      ></img>
+        data-key={index}
+      />
     </div>
   );
 }
+
+Card.propTypes = {
+  classList: PropTypes.string,
+  index: PropTypes.number,
+  handleClick: PropTypes.func,
+  handleDragStart: PropTypes.func,
+  handleDragOver: PropTypes.func,
+  handleDrop: PropTypes.func,
+  replaceBrokenSuperhero: PropTypes.func,
+  url: PropTypes.string,
+};
+
+Card.defaultProps = {
+  classList: '',
+  index: 0,
+  handleClick: () => {},
+  handleDragStart: () => {},
+  handleDragOver: () => {},
+  handleDrop: () => {},
+  replaceBrokenSuperhero: () => {},
+  url: '',
+};

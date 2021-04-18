@@ -1,44 +1,44 @@
 const ua = {
   InfoArea: {
-    task: "Хто тут",
-    successReport: "Що ж, цього разу вірно.",
-    failedReport: "Та ну ні!",
+    task: 'Хто тут',
+    successReport: 'Що ж, цього разу вірно.',
+    failedReport: 'Та ну ні!',
   },
   ControlArea: {
     task:
       'Обери фото супергероя мишкою або стрілочками та натисни кнопку "Перевірити" або Enter',
-    newGameButtonText: "Нова гра",
-    checkButtonText: "Перевірити",
+    newGameButtonText: 'Нова гра',
+    checkButtonText: 'Перевірити',
   },
   SuperheroGameView: {
-    downloadError: "Помилка завантаження даних",
-    gameHeader: "Чи ти добре знаєш супергероїв?",
+    downloadError: 'Помилка завантаження даних',
+    gameHeader: 'Чи ти добре знаєш супергероїв?',
   },
 };
 
 const en = {
   InfoArea: {
-    task: "Who is",
-    successReport: "This time you were right!",
-    failedReport: "No way!",
+    task: 'Who is',
+    successReport: 'This time you were right!',
+    failedReport: 'No way!',
   },
   ControlArea: {
     task:
       'Please, choose a superhero with the mouse or arrow keys, and press "Check" button, or Enter',
-    newGameButtonText: "New Game",
-    checkButtonText: "Check",
+    newGameButtonText: 'New Game',
+    checkButtonText: 'Check',
   },
   SuperheroGameView: {
-    downloadError: "Download Error",
-    gameHeader: "Do you know superheros well?",
+    downloadError: 'Download Error',
+    gameHeader: 'Do you know superheros well?',
   },
 };
 
 const getTranslation = (language, componentName) => {
   switch (language) {
-    case "ua":
+    case 'ua':
       return ua[componentName];
-    case "en":
+    case 'en':
       return en[componentName];
     default:
       return {};
