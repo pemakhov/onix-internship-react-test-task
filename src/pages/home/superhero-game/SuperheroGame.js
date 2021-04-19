@@ -29,12 +29,12 @@ export default class SuperheroGame extends Component {
     this.state = this.initialState;
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.init();
     this.addKeyboardControl();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate = (prevProps, prevState) => {
     const { gameOver } = this.state;
 
     if (!(prevState.gameOver && !gameOver)) {
@@ -213,8 +213,8 @@ export default class SuperheroGame extends Component {
   };
 
   addKeyboardControl() {
-    const { gameOver, active } = this.state;
     const handleKeyDown = (event) => {
+      const { gameOver, active } = this.state;
       const arrowKeys = [
         'ArrowLeft',
         'ArrowRight',
