@@ -41,9 +41,7 @@ export default class SuperheroGame extends Component {
       return;
     }
 
-    // TODO: Solve this issue
-    // eslint-disable-next-line react/no-did-update-set-state
-    this.setState(this.initialState);
+    this.setInitialState();
     this.init();
   }
 
@@ -61,6 +59,8 @@ export default class SuperheroGame extends Component {
 
     return Promise.all(superheroPromises);
   }
+
+  setInitialState = () => this.setState(this.initialState);
 
   handleCardClick = (i) => {
     const { gameOver, active } = this.state;
