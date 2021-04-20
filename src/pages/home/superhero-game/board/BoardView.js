@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Board.css';
+import './Board.scss';
 
 export default function BoardView(props) {
   const { cards } = props;

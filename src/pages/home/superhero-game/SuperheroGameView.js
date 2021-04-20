@@ -5,7 +5,7 @@ import Board from './board/Board';
 import Panel from './panel/Panel';
 import Button from '../../../components/button/Button';
 import withTranslation from './withTranslation';
-import './SuperheroGame.css';
+import './SuperheroGame.scss';
 
 function SuperheroGameView(props) {
   // eslint-disable-next-line object-curly-newline

@@ -1,5 +1,6 @@
-$textLight: #656565;
-$pinkBackground: #ffe1bd;
+$text: #656565;
+$primaryBackground: #fff;
+$secondaryBackground: #ffe1bd;
 $middleScreenBreakpoint: 768px;
 
 .structure {
@@ -69,13 +70,14 @@ html {
   min-width: 250px;
 
   body {
+    background-color: $primaryBackground;
     margin: 0;
     padding: 0;
 
     #root {
       max-width: 1149px;
       margin: 0 auto;
-      font-family: "Montserrat", sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 14px;
 
       header {
@@ -105,7 +107,7 @@ html {
 
               a {
                 font-size: 1.2rem;
-                color: $textLight;
+                color: $text;
                 text-decoration: none;
               }
 
@@ -118,7 +120,6 @@ html {
 
         .header-content {
           padding: 110px 0;
-          background-color: $pinkBackground;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -165,7 +166,6 @@ html {
             .article__image {
               width: 50%;
               height: 560px;
-              background-color: $pinkBackground;
               display: flex;
               align-items: center;
               justify-content: center;
@@ -191,12 +191,12 @@ html {
 
               p:before {
                 font-size: 3.5rem;
-                content: "«";
+                content: '«';
               }
 
               p:after {
                 font-size: 3.5rem;
-                content: "»";
+                content: '»';
               }
             }
 
@@ -254,7 +254,7 @@ html {
           }
 
           p {
-            color: $textLight;
+            color: $text;
             font-size: 1rem;
           }
 
@@ -325,4 +325,23 @@ html {
       }
     }
   }
+}
+
+.article__image,
+.header-content {
+  background-color: $secondaryBackground;
+}
+
+.dark {
+  background-color: #222;
+  color: #eee;
+}
+
+.article__image.dark,
+.header-content.dark {
+  background-color: #111;
+}
+
+.article__image.dark p {
+  color: #ddd;
 }
