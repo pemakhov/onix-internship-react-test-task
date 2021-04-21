@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ThemeContext } from '../../../../contexts/ThemeContext';
+
 import Button from '../../../../components/button/Button';
 import withTranslation from '../withTranslation';
 
@@ -33,7 +35,13 @@ function ControlArea(props) {
 
   const content = getContent(active, gameOver);
 
-  return <div className="control-area">{content}</div>;
+  return (
+    <ThemeContext.Consumer>
+      {(context) => (
+        <div className={`control-area ${context.theme}`}>{content}</div>
+      )}
+    </ThemeContext.Consumer>
+  );
 }
 
 ControlArea.propTypes = {
