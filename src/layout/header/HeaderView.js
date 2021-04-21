@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../components/button/Button';
+import ToggleSwitch from '../../components/toggle-switch/ToggleSwitch';
 
 export default function HeaderView(props) {
-  const { handleButtonClick } = props;
+  const { handleButtonClick, toggleTheme } = props;
   const logo = 'react.';
   const navInfo = 'info';
   const navGame = 'гра';
@@ -27,6 +28,12 @@ export default function HeaderView(props) {
             <li>
               <a href="#links">{navLinks}</a>
             </li>
+            <li>
+              <ToggleSwitch
+                handleChange={() => toggleTheme()}
+                id="toggle-theme"
+              />
+            </li>
           </ul>
         </nav>
       </div>
@@ -42,8 +49,10 @@ export default function HeaderView(props) {
 
 HeaderView.propTypes = {
   handleButtonClick: PropTypes.func,
+  toggleTheme: PropTypes.func,
 };
 
 HeaderView.defaultProps = {
   handleButtonClick: () => {},
+  toggleTheme: () => {},
 };
