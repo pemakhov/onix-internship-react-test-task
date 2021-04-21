@@ -1,6 +1,5 @@
-# Lessson 9
+# Lessson 10
 
-## React basics. Virtual DOM and HOC
+## React basics. Context
 
-Implemented two languages in the Superhero Game.
-It doesn't update in the game header. I don't know why yet.
+Implement color themes
