@@ -257,9 +257,7 @@ export default class SuperheroGame extends Component {
           break;
 
         case 'ArrowUp':
-          // eslint-disable-next-line operator-linebreak
-          nextActive =
-            (active + this.SUPERHEROS_TO_SHOW - 3) % this.SUPERHEROS_TO_SHOW;
+          nextActive = (active + this.SUPERHEROS_TO_SHOW - 3) % this.SUPERHEROS_TO_SHOW;
           break;
 
         case 'ArrowDown':

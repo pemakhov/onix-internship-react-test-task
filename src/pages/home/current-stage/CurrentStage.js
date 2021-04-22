@@ -1,5 +1,5 @@
 import React from 'react';
-import Stages from './Stages';
+import Stages from './stages';
 import CurrentStageView from './CurrentStageView';
 
 export default class CurrentStage extends React.Component {
@@ -29,11 +29,9 @@ export default class CurrentStage extends React.Component {
     const daysToMeeting = meetingDayNumber - new Date().getDay();
     const daysWordWithProperEnding = this.getDaysWord(daysToMeeting);
 
-    // eslint-disable-next-line operator-linebreak
-    const announce =
-      daysToMeeting === 0
-        ? 'Зустріч сьогодні'
-        : `До зустрічі ${daysToMeeting} ${daysWordWithProperEnding}`;
+    const announce = daysToMeeting === 0
+      ? 'Зустріч сьогодні'
+      : `До зустрічі ${daysToMeeting} ${daysWordWithProperEnding}`;
 
     return <CurrentStageView announce={announce} stages={stages} />;
   }

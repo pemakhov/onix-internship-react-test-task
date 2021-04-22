@@ -1,5 +1,5 @@
-/* eslint-disable operator-linebreak */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default [
   {
@@ -18,8 +18,8 @@ export default [
   {
     topic: 'основи створення проектів на react',
     goal:
-      'ознайомитись з node та npm, отримати базові поняття про react,' +
-      ' розгорнути перший проект за допомогою react cli',
+      'ознайомитись з node та npm, отримати базові поняття про react,'
+      + ' розгорнути перший проект за допомогою react cli',
     task: (
       <>
         <p>1. Встановити node.js та npm</p>
@@ -114,8 +114,8 @@ export default [
   {
     topic: 'основи React, React компоненти, чисті функції',
     goal:
-      'ознайомитись з компонентами в React, ознайомитись з чистими функціями ' +
-      'та необхідністю їх використання',
+      'ознайомитись з компонентами в React, ознайомитись з чистими функціями '
+      + 'та необхідністю їх використання',
     task: (
       <>
         <p>
@@ -152,3 +152,9 @@ export default [
     ),
   },
 ];
+
+export const TStage = {
+  topic: PropTypes.string,
+  goal: PropTypes.string,
+  task: PropTypes.element,
+};

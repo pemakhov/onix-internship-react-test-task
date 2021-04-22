@@ -1,15 +1,21 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Board from './board/Board';
 import Panel from './panel/Panel';
 import Button from '../../../components/button/Button';
 import withTranslation from './withTranslation';
+import TSuperhero from './TSuperhero';
 import './SuperheroGame.scss';
 
 function SuperheroGameView(props) {
-  // eslint-disable-next-line object-curly-newline
-  const { language, getTranslation, superheros, gameState, handlers } = props;
+  const {
+    language,
+    getTranslation,
+    superheros,
+    gameState,
+    handlers
+  } = props;
+
   const { downloadError = '', gameHeader = '' } = getTranslation(
     language,
     'SuperheroGameView'
@@ -75,10 +81,27 @@ function SuperheroGameView(props) {
 
 SuperheroGameView.propTypes = {
   language: PropTypes.string,
-  superheros: PropTypes.any,
+  superheros: PropTypes.arrayOf(TSuperhero),
   getTranslation: PropTypes.func,
-  gameState: PropTypes.any,
-  handlers: PropTypes.any
+  gameState: PropTypes.shape({
+    chosen: PropTypes.number,
+    active: PropTypes.number,
+    gameOver: PropTypes.bool,
+    loaded: PropTypes.bool,
+    apiError: PropTypes.shape({
+      message: PropTypes.string,
+    }),
+  }),
+  handlers: PropTypes.shape({
+    handleCardClick: PropTypes.func,
+    replaceBrokenSuperhero: PropTypes.func,
+    handleDragStart: PropTypes.func,
+    handleDragOver: PropTypes.func,
+    handleDrop: PropTypes.func,
+    handleCheckButtonClick: PropTypes.func,
+    startNewGame: PropTypes.func,
+    toggleLanguage: PropTypes.func,
+  }),
 };
 
 SuperheroGameView.defaultProps = {

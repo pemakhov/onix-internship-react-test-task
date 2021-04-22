@@ -1,7 +1,7 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeContext } from '../../../contexts/ThemeContext';
+import { TStage } from './stages';
 
 export default function CurrentStageView(props) {
   const { announce, stages } = props;
@@ -12,7 +12,11 @@ export default function CurrentStageView(props) {
   const currentStage = stages[currentStageNumber];
   const projectInfoArticleHeader = (
     <>
-      етап <strong>№{currentStageNumber}</strong>
+      {'етап '}
+      <strong>
+        № 
+        {currentStageNumber}
+      </strong>
     </>
   );
 
@@ -42,11 +46,10 @@ export default function CurrentStageView(props) {
 
 CurrentStageView.propTypes = {
   announce: PropTypes.string,
-  // eslint-disable-next-line react/forbid-prop-types
-  stages: PropTypes.any,
+  stages: PropTypes.arrayOf(TStage),
 };
 
 CurrentStageView.defaultProps = {
   announce: "Can't provide the announce",
-  stages: {},
+  stages: [],
 };
