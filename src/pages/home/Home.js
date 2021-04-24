@@ -1,8 +1,9 @@
 import React from 'react';
+import withLayout from '../../layout/withLayout';
 import Stages from './stages';
-import CurrentStageView from './CurrentStageView';
+import CurrentStageView from './HomeView';
 
-export default class CurrentStage extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,3 +37,5 @@ export default class CurrentStage extends React.Component {
     return <CurrentStageView announce={announce} stages={stages} />;
   }
 }
+
+export default withLayout(Home);

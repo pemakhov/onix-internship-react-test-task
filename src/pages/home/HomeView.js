@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ThemeContext } from '../../../contexts/ThemeContext';
+import { ThemeContext } from '../../contexts/ThemeContext';
 import { TStage } from './stages';
 
-export default function CurrentStageView(props) {
+export default function HomeView(props) {
   const { announce, stages } = props;
   const projectInfoHeader = 'інформація про поточний етап';
   const topicHeader = 'Тема:';
@@ -44,12 +44,12 @@ export default function CurrentStageView(props) {
   );
 }
 
-CurrentStageView.propTypes = {
+HomeView.propTypes = {
   announce: PropTypes.string,
   stages: PropTypes.arrayOf(TStage),
 };
 
-CurrentStageView.defaultProps = {
+HomeView.defaultProps = {
   announce: "Can't provide the announce",
   stages: [],
 };

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { LanguageContext } from '../../../contexts/LanguageContext';
-import CustomMath from '../../../service/CustomMath';
+import { LanguageContext } from '../../contexts/LanguageContext';
+import withLayout from '../../layout/withLayout';
+import CustomMath from '../../service/CustomMath';
 import SuperheroGameViewWithTranslation from './SuperheroGameView';
 
-export default class SuperheroGame extends Component {
+class SuperheroGame extends Component {
   initialState = {
     superheros: [],
     reserve: [],
@@ -295,3 +296,5 @@ export default class SuperheroGame extends Component {
     );
   }
 }
+
+export default withLayout(SuperheroGame);

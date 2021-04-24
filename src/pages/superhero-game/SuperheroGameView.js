@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LanguageContext } from '../../../contexts/LanguageContext';
+import { LanguageContext } from '../../contexts/LanguageContext';
 import Board from './board/Board';
 import Panel from './panel/Panel';
-import Button from '../../../components/button/Button';
+import Button from '../../components/button/Button';
 import withTranslation from './withTranslation';
 import TSuperhero from './TSuperhero';
 import './SuperheroGame.scss';

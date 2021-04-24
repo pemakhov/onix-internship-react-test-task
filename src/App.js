@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeContext, themes } from './contexts/ThemeContext';
 import { LanguageContext, languages } from './contexts/LanguageContext';
-import AppView from './AppView';
+import Home from './pages/home/Home';
+import SuperheroGame from './pages/superhero-game/SuperheroGame';
+import './App.scss';
 
 class App extends Component {
   anchorText = 'Anchor';
@@ -43,7 +46,16 @@ class App extends Component {
       <>
         <LanguageContext.Provider value={{ language, toggleLanguage: this.toggleLanguage }}>
           <ThemeContext.Provider value={{ theme, toggleTheme: this.toggleTheme }}>
-            <AppView />
+            <Router>
+              <Switch>
+                <Route path="/game">
+                  <SuperheroGame />
+                </Route>
+                <Route path="/">
+                  <Home />
+                </Route>
+              </Switch>
+            </Router>
           </ThemeContext.Provider>
         </LanguageContext.Provider>
       </>
