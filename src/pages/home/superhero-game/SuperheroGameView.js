@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LanguageContext } from '../../../contexts/LanguageContext';
 import Board from './board/Board';
 import Panel from './panel/Panel';
 import Button from '../../../components/button/Button';
@@ -16,10 +17,7 @@ function SuperheroGameView(props) {
     handlers
   } = props;
 
-  const { downloadError = '', gameHeader = '' } = getTranslation(
-    language,
-    'SuperheroGameView'
-  );
+  const { downloadError = '', gameHeader = '' } = getTranslation(language, 'SuperheroGameView');
 
   let board = null;
   let panel = null;
@@ -65,17 +63,21 @@ function SuperheroGameView(props) {
   }
 
   return (
-    <section>
-      <h2>
-        <Button value={language} onClick={handlers.toggleLanguage} />
-      </h2>
-      <h2>{gameHeader}</h2>
-      {errorMessage}
-      <div id="superhero-game">
-        {board}
-        {panel}
-      </div>
-    </section>
+    <LanguageContext.Consumer>
+      {({ toggleLanguage }) => (
+        <section>
+          <h2>
+            <Button value={language} onClick={toggleLanguage} />
+          </h2>
+          <h2>{gameHeader}</h2>
+          {errorMessage}
+          <div id="superhero-game">
+            {board}
+            {panel}
+          </div>
+        </section>
+      )}
+    </LanguageContext.Consumer>
   );
 }
 
@@ -100,7 +102,6 @@ SuperheroGameView.propTypes = {
     handleDrop: PropTypes.func,
     handleCheckButtonClick: PropTypes.func,
     startNewGame: PropTypes.func,
-    toggleLanguage: PropTypes.func,
   }),
 };
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ThemeContext, themes } from './contexts/ThemeContext';
+import { LanguageContext, languages } from './contexts/LanguageContext';
 import AppView from './AppView';
 
 class App extends Component {
@@ -9,6 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       theme: themes.light,
+      language: languages.ua,
     };
   }
 
@@ -17,19 +19,33 @@ class App extends Component {
       const { dark, light } = allThemes;
       return current === dark ? light : dark;
     };
+
     this.setState((prevState) => ({
       theme: getTheme(prevState.theme, themes),
     }));
   };
 
+  toggleLanguage = () => {
+    const getLanguage = (current, allLanguages) => {
+      const { en, ua } = allLanguages;
+      return current === en ? ua : en;
+    };
+
+    this.setState((prevState) => ({
+      language: getLanguage(prevState.language, languages),
+    }));
+  };
+
   render() {
-    const { theme } = this.state;
+    const { theme, language } = this.state;
 
     return (
       <>
-        <ThemeContext.Provider value={{ theme, toggleTheme: this.toggleTheme }}>
-          <AppView />
-        </ThemeContext.Provider>
+        <LanguageContext.Provider value={{ language, toggleLanguage: this.toggleLanguage }}>
+          <ThemeContext.Provider value={{ theme, toggleTheme: this.toggleTheme }}>
+            <AppView />
+          </ThemeContext.Provider>
+        </LanguageContext.Provider>
       </>
     );
   }

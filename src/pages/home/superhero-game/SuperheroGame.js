@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { LanguageContext } from '../../../contexts/LanguageContext';
 import CustomMath from '../../../service/CustomMath';
 import SuperheroGameViewWithTranslation from './SuperheroGameView';
 
@@ -11,7 +12,6 @@ export default class SuperheroGame extends Component {
     gameOver: false,
     loaded: false,
     apiError: null,
-    language: 'ua', // "ua" or "en"
   };
 
   URL = 'https://www.superheroapi.com/api.php/10159321593748921/';
@@ -32,7 +32,7 @@ export default class SuperheroGame extends Component {
   componentDidMount = () => {
     this.init();
     this.addKeyboardControl();
-  }
+  };
 
   componentDidUpdate = (prevProps, prevState) => {
     const { gameOver } = this.state;
@@ -43,7 +43,7 @@ export default class SuperheroGame extends Component {
 
     this.setInitialState();
     this.init();
-  }
+  };
 
   async getOneSuperhero(url) {
     const response = await fetch(url);
@@ -89,9 +89,7 @@ export default class SuperheroGame extends Component {
     const { superheros, reserve } = this.state;
 
     // eslint-disable-next-line no-alert
-    alert(
-      'Де-які дані супергероя не завантажились і супергерой буде замінений'
-    );
+    alert('Де-які дані супергероя не завантажились і супергерой буде замінений');
 
     if (reserve.length === 0) {
       return;
@@ -129,10 +127,7 @@ export default class SuperheroGame extends Component {
       return;
     }
 
-    event.dataTransfer.setData(
-      'text/plain',
-      event.target.getAttribute('data-key')
-    );
+    event.dataTransfer.setData('text/plain', event.target.getAttribute('data-key'));
 
     // eslint-disable-next-line no-param-reassign
     event.dataTransfer.effectAllowed = 'move';
@@ -159,11 +154,7 @@ export default class SuperheroGame extends Component {
     const sourceKey = parseInt(event.dataTransfer.getData('text/plain'));
     const targetKey = parseInt(event.target.getAttribute('data-key'));
 
-    const updatedSuperheros = this.replaceTwoSuperheros(
-      sourceKey,
-      targetKey,
-      superheros
-    );
+    const updatedSuperheros = this.replaceTwoSuperheros(sourceKey, targetKey, superheros);
 
     const updatedChosen = this.updateChosenIndex(sourceKey, targetKey, chosen);
 
@@ -184,9 +175,7 @@ export default class SuperheroGame extends Component {
 
     try {
       const superheros = await this.getSuperherosByIdList(idList);
-      const failures = superheros
-        .map((superhero) => superhero?.response === 'error')
-        .filter((x) => x);
+      const failures = superheros.map((superhero) => superhero?.response === 'error').filter((x) => x);
 
       if (failures.length > 2) {
         throw new Error('Failed to load too many superheros');
@@ -195,10 +184,7 @@ export default class SuperheroGame extends Component {
       this.setState({
         superheros: superheros.slice(0, this.SUPERHEROS_TO_SHOW),
         reserve: superheros.slice(this.SUPERHEROS_TO_SHOW),
-        chosen: CustomMath.getRandomNumberInRange(
-          0,
-          this.SUPERHEROS_TO_SHOW - 1
-        ),
+        chosen: CustomMath.getRandomNumberInRange(0, this.SUPERHEROS_TO_SHOW - 1),
         active: null,
         gameOver: false,
         loaded: true,
@@ -215,13 +201,7 @@ export default class SuperheroGame extends Component {
   addKeyboardControl() {
     const handleKeyDown = (event) => {
       const { gameOver, active } = this.state;
-      const arrowKeys = [
-        'ArrowLeft',
-        'ArrowRight',
-        'ArrowUp',
-        'ArrowDown',
-        'Enter',
-      ];
+      const arrowKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'];
 
       if (!arrowKeys.includes(event.key)) {
         return;
@@ -278,37 +258,40 @@ export default class SuperheroGame extends Component {
 
   render() {
     const {
-      language,
       superheros,
       chosen,
       active,
       gameOver,
       loaded,
-      apiError,
+      apiError
     } = this.state;
 
     return (
-      <SuperheroGameViewWithTranslation
-        language={language}
-        superheros={superheros}
-        gameState={{
-          chosen,
-          active,
-          gameOver,
-          loaded,
-          apiError,
-        }}
-        handlers={{
-          handleCardClick: this.handleCardClick,
-          replaceBrokenSuperhero: this.replaceBrokenSuperhero,
-          handleDragStart: this.handleDragStart,
-          handleDragOver: this.handleDragOver,
-          handleDrop: this.handleDrop,
-          handleCheckButtonClick: this.handleCheckButtonClick,
-          startNewGame: this.startNewGame,
-          toggleLanguage: this.toggleLanguage,
-        }}
-      />
+      <LanguageContext.Consumer>
+        {({ language }) => (
+          <SuperheroGameViewWithTranslation
+            language={language}
+            superheros={superheros}
+            gameState={{
+              chosen,
+              active,
+              gameOver,
+              loaded,
+              apiError,
+            }}
+            handlers={{
+              handleCardClick: this.handleCardClick,
+              replaceBrokenSuperhero: this.replaceBrokenSuperhero,
+              handleDragStart: this.handleDragStart,
+              handleDragOver: this.handleDragOver,
+              handleDrop: this.handleDrop,
+              handleCheckButtonClick: this.handleCheckButtonClick,
+              startNewGame: this.startNewGame,
+              toggleLanguage: this.toggleLanguage,
+            }}
+          />
+        )}
+      </LanguageContext.Consumer>
     );
   }
 }

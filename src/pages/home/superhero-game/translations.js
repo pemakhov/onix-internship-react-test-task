@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const ua = {
   InfoArea: {
     task: 'Хто тут',
@@ -46,3 +48,20 @@ const getTranslation = (language, componentName) => {
 };
 
 export default getTranslation;
+
+export const TTranslation = PropTypes.shape({
+  InfoArea: PropTypes.shape({
+    task: PropTypes.string,
+    successReport: PropTypes.string,
+    failedReport: PropTypes.string,
+  }),
+  ControlArea: {
+    task: PropTypes.string,
+    newGameButtonText: PropTypes.string,
+    checkButtonText: PropTypes.string,
+  },
+  SuperheroGameView: {
+    downloadError: PropTypes.string,
+    gameHeader: PropTypes.string,
+  },
+});

@@ -153,8 +153,8 @@ export default [
   },
 ];
 
-export const TStage = {
+export const TStage = PropTypes.shape({
   topic: PropTypes.string,
   goal: PropTypes.string,
   task: PropTypes.element,
-};
+});
