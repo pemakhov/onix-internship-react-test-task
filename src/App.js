@@ -4,6 +4,7 @@ import { ThemeContext, themes } from './contexts/ThemeContext';
 import { LanguageContext, languages } from './contexts/LanguageContext';
 import Home from './pages/home/Home';
 import SuperheroGame from './pages/superhero-game/SuperheroGame';
+import Biography from './pages/biography/Biography';
 import './App.scss';
 
 class App extends Component {
@@ -50,6 +51,9 @@ class App extends Component {
               <Switch>
                 <Route path="/game">
                   <SuperheroGame />
+                </Route>
+                <Route path="/bio">
+                  <Biography />
                 </Route>
                 <Route path="/">
                   <Home />

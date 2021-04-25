@@ -7,6 +7,7 @@ const Nav = () => {
   const linkTexts = {
     home: 'Домашня сторінка',
     game: 'Гра',
+    bio: 'Біографія',
     links: 'Посилання',
   };
 
@@ -20,6 +21,9 @@ const Nav = () => {
             </li>
             <li>
               <Link to="/game">{linkTexts.game}</Link>
+            </li>
+            <li>
+              <Link to="/bio">{linkTexts.bio}</Link>
             </li>
             <li>
               <a href="#links">{linkTexts.links}</a>
