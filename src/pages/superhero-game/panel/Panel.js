@@ -1,25 +1,20 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import TSuperhero from './Superhero';
 import PanelView from './PanelView';
 
-export default function Panel(props) {
+const Panel = (props) => {
   const {
     language,
     gameState,
     superheros,
     handleButtonClick,
     startNewGame,
-    replaceBrokenSuperhero,
   } = props;
 
   const { chosen } = gameState;
 
   const chosenSuperhero = superheros[chosen];
-
-  if (!chosenSuperhero?.name) {
-    replaceBrokenSuperhero(chosen);
-  }
 
   return (
     <PanelView
@@ -30,15 +25,18 @@ export default function Panel(props) {
       startNewGame={startNewGame}
     />
   );
-}
+};
 
 Panel.propTypes = {
   language: PropTypes.string,
-  gameState: PropTypes.any,
-  superheros: PropTypes.any,
+  superheros: PropTypes.arrayOf(TSuperhero),
+  gameState: PropTypes.shape({
+    chosen: PropTypes.number,
+    active: PropTypes.number,
+    gameOver: PropTypes.bool,
+  }),
   handleButtonClick: PropTypes.func,
   startNewGame: PropTypes.func,
-  replaceBrokenSuperhero: PropTypes.func,
 };
 
 Panel.defaultProps = {
@@ -47,5 +45,6 @@ Panel.defaultProps = {
   superheros: [],
   handleButtonClick: () => {},
   startNewGame: () => {},
-  replaceBrokenSuperhero: () => {},
 };
+
+export default Panel;

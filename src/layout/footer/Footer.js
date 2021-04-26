@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeContext } from '../../contexts/ThemeContext';
 
-export default function Footer() {
+const Footer = () => {
   const footerHeader = 'Автор та посилання';
   const authorName = 'Сергій Пемахов';
   const authorGithubLink = 'https://github.com/pemakhov';
@@ -41,4 +41,6 @@ export default function Footer() {
       )}
     </ThemeContext.Consumer>
   );
-}
+};
+
+export default Footer;

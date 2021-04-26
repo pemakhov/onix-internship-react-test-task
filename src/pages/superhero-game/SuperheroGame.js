@@ -1,98 +1,66 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LanguageContext } from '../../contexts/LanguageContext';
 import withLayout from '../../layout/withLayout';
 import CustomMath from '../../service/CustomMath';
 import SuperheroGameViewWithTranslation from './SuperheroGameView';
 
-class SuperheroGame extends Component {
-  initialState = {
-    superheros: [],
-    reserve: [],
-    chosen: null,
-    active: null,
-    gameOver: false,
-    loaded: false,
-    apiError: null,
+const SuperheroGame = () => {
+  const [superheros, setSuperheros] = useState([]);
+  const [reserve, setReserve] = useState([]);
+  const [chosen, setChosen] = useState(null);
+  const [active, setActive] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [apiError, setApiError] = useState(null);
+  const [newGame, setNewGame] = useState(true);
+
+  const startNewGame = () => {
+    setSuperheros([]);
+    setReserve([]);
+    setChosen(null);
+    setActive(() => null);
+    setGameOver(false);
+    setLoaded(false);
+    setApiError(null);
+    setNewGame(true);
   };
 
-  URL = 'https://www.superheroapi.com/api.php/10159321593748921/';
+  const URL = 'https://www.superheroapi.com/api.php/10159321593748921/';
 
-  MIN_ID = 1;
+  const MIN_ID = 1;
 
-  MAX_ID = 731;
+  const MAX_ID = 731;
 
-  SUPERHEROS_TO_SHOW = 9;
+  const SUPERHEROS_TO_SHOW = 9;
 
-  RESERVE_OF_SUPERHEROS = 5;
+  const RESERVE_OF_SUPERHEROS = 5;
 
-  constructor(props) {
-    super(props);
-    this.state = this.initialState;
-  }
-
-  componentDidMount = () => {
-    this.init();
-    this.addKeyboardControl();
-  };
-
-  componentDidUpdate = (prevProps, prevState) => {
-    const { gameOver } = this.state;
-
-    if (!(prevState.gameOver && !gameOver)) {
-      return;
-    }
-
-    this.setInitialState();
-    this.init();
-  };
-
-  async getOneSuperhero(url) {
+  const getOneSuperhero = async (url) => {
     const response = await fetch(url);
     const superhero = await response.json();
     return superhero;
-  }
+  };
 
-  async getSuperherosByIdList(idList) {
+  const getSuperherosByIdList = async (idList) => {
     const superheroPromises = idList.map((id) => {
-      const url = this.URL + id;
-      return this.getOneSuperhero(url);
+      const url = URL + id;
+      return getOneSuperhero(url);
     });
 
     return Promise.all(superheroPromises);
-  }
-
-  setInitialState = () => this.setState(this.initialState);
-
-  handleCardClick = (i) => {
-    const { gameOver, active } = this.state;
-
-    if (gameOver) {
-      return;
-    }
-    if (active === i) {
-      return;
-    }
-    this.setState({ active: i });
   };
 
-  handleCheckButtonClick = () => {
-    this.setState({ gameOver: true });
+  const handleCardClick = (i) => {
+    if (gameOver) return;
+    if (active === i) return;
+
+    setActive(() => i);
   };
 
-  toggleLanguage = () => {
-    this.setState((prevState) => {
-      const newLanguage = prevState.language === 'ua' ? 'en' : 'ua';
-      return { language: newLanguage };
-    });
-  };
-
-  replaceBrokenSuperhero = (n) => {
-    const { superheros, reserve } = this.state;
-
-    // eslint-disable-next-line no-alert
-    alert('Де-які дані супергероя не завантажились і супергерой буде замінений');
-
+  const replaceBrokenSuperhero = (n) => {
     if (reserve.length === 0) {
+      // eslint-disable-next-line no-alert
+      alert('Не вдалося завантажити супергероїв');
       return;
     }
 
@@ -101,11 +69,12 @@ class SuperheroGame extends Component {
 
     updatedSuperheros[n] = updatedReserve.pop();
 
-    this.setState({ superheros: updatedSuperheros, reserve: updatedReserve });
+    setSuperheros(() => updatedSuperheros);
+    setReserve(() => updatedReserve);
   };
 
-  replaceTwoSuperheros = (x, y, superheros) => {
-    const updatedSuperheros = [...superheros];
+  const replaceTwoSuperheros = (x, y, heroes) => {
+    const updatedSuperheros = [...heroes];
     const superheroX = updatedSuperheros[x];
     updatedSuperheros[x] = updatedSuperheros[y];
     updatedSuperheros[y] = superheroX;
@@ -113,20 +82,14 @@ class SuperheroGame extends Component {
     return updatedSuperheros;
   };
 
-  updateChosenIndex = (x, y, chosen) => {
-    if (chosen !== x && chosen !== y) {
-      return chosen;
-    }
+  const updateChosenIndex = (x, y, chosenCard) => {
+    if (chosenCard !== x && chosenCard !== y) return chosenCard;
 
-    return chosen === x ? y : x;
+    return chosenCard === x ? y : x;
   };
 
-  handleDragStart = (event) => {
-    const { gameOver } = this.state;
-
-    if (gameOver) {
-      return;
-    }
+  const handleDragStart = (event) => {
+    if (gameOver) return;
 
     event.dataTransfer.setData('text/plain', event.target.getAttribute('data-key'));
 
@@ -134,167 +97,134 @@ class SuperheroGame extends Component {
     event.dataTransfer.effectAllowed = 'move';
   };
 
-  handleDragOver = (event) => {
-    const { gameOver } = this.state;
-    if (gameOver) {
-      return;
-    }
+  const handleDragOver = (event) => {
+    if (gameOver) return;
 
     event.preventDefault();
     // eslint-disable-next-line no-param-reassign
     event.dataTransfer.dropEffect = 'move';
   };
 
-  handleDrop = (event) => {
-    const { gameOver, superheros, chosen } = this.state;
-    if (gameOver) {
-      return;
-    }
+  const handleDrop = (event) => {
+    if (gameOver) return;
 
     event.preventDefault();
     const sourceKey = parseInt(event.dataTransfer.getData('text/plain'));
     const targetKey = parseInt(event.target.getAttribute('data-key'));
 
-    const updatedSuperheros = this.replaceTwoSuperheros(sourceKey, targetKey, superheros);
+    const updatedSuperheros = replaceTwoSuperheros(sourceKey, targetKey, superheros);
+    const updatedChosen = updateChosenIndex(sourceKey, targetKey, chosen);
 
-    const updatedChosen = this.updateChosenIndex(sourceKey, targetKey, chosen);
-
-    this.setState({ superheros: updatedSuperheros, chosen: updatedChosen });
+    setSuperheros(() => updatedSuperheros);
+    setChosen(() => updatedChosen);
   };
 
   /**
    * Inits the game
    */
-  init = async () => {
+  const init = async () => {
+    setNewGame(() => false);
+
     const idList = CustomMath.getArrayOfRandomNumbersInRange({
-      length: this.SUPERHEROS_TO_SHOW + this.RESERVE_OF_SUPERHEROS,
+      length: SUPERHEROS_TO_SHOW + RESERVE_OF_SUPERHEROS,
       range: {
-        min: this.MIN_ID,
-        max: this.MAX_ID,
+        min: MIN_ID,
+        max: MAX_ID,
       },
     });
 
     try {
-      const superheros = await this.getSuperherosByIdList(idList);
-      const failures = superheros.map((superhero) => superhero?.response === 'error').filter((x) => x);
+      const heroes = await getSuperherosByIdList(idList);
+      const failures = heroes.map((superhero) => superhero?.response === 'error').filter((x) => x);
 
-      if (failures.length > 2) {
-        throw new Error('Failed to load too many superheros');
-      }
+      if (failures.length > 2) throw new Error('Failed to load too many superheros');
 
-      this.setState({
-        superheros: superheros.slice(0, this.SUPERHEROS_TO_SHOW),
-        reserve: superheros.slice(this.SUPERHEROS_TO_SHOW),
-        chosen: CustomMath.getRandomNumberInRange(0, this.SUPERHEROS_TO_SHOW - 1),
-        active: null,
-        gameOver: false,
-        loaded: true,
-      });
-    } catch (apiError) {
-      this.setState({ apiError });
+      setSuperheros(() => heroes.slice(0, SUPERHEROS_TO_SHOW));
+      setReserve(() => heroes.slice(SUPERHEROS_TO_SHOW));
+      setChosen(() => CustomMath.getRandomNumberInRange(0, SUPERHEROS_TO_SHOW - 1));
+      setLoaded(true);
+    } catch (error) {
+      setApiError(() => error);
     }
   };
 
-  startNewGame = () => {
-    this.setState({ gameOver: false });
-  };
+  const handleKeyDown = (event) => {
+    const arrowKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
 
-  addKeyboardControl() {
-    const handleKeyDown = (event) => {
-      const { gameOver, active } = this.state;
-      const arrowKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'];
+    if (!arrowKeys.includes(event.key)) return;
 
-      if (!arrowKeys.includes(event.key)) {
-        return;
+    event.preventDefault();
+
+    if (gameOver) return;
+
+    setActive((previous) => {
+      if (previous === null) {
+        return 0;
       }
-
-      event.preventDefault();
-
-      if (gameOver) {
-        return;
-      }
-
-      if (active === null) {
-        this.setState({ active: 0 });
-        return;
-      }
-
-      let nextActive = 0;
 
       switch (event.key) {
-        case 'Enter':
-          if (active !== null && !gameOver) {
-            this.setState({ gameOver: true });
-            return;
-          }
-          break;
-
         case 'ArrowLeft':
-          nextActive = ((active + 3 - 1) % 3) + Math.floor(active / 3) * 3;
-          break;
+          return ((previous + 3 - 1) % 3) + Math.floor(previous / 3) * 3;
 
         case 'ArrowRight':
-          nextActive = ((active + 3 + 1) % 3) + Math.floor(active / 3) * 3;
-          break;
+          return ((previous + 3 + 1) % 3) + Math.floor(previous / 3) * 3;
 
         case 'ArrowUp':
-          nextActive = (active + this.SUPERHEROS_TO_SHOW - 3) % this.SUPERHEROS_TO_SHOW;
-          break;
+          return (previous + SUPERHEROS_TO_SHOW - 3) % SUPERHEROS_TO_SHOW;
 
         case 'ArrowDown':
-          nextActive = (active + 3) % this.SUPERHEROS_TO_SHOW;
-          break;
+          return (previous + 3) % SUPERHEROS_TO_SHOW;
 
         default:
           // eslint-disable-next-line no-console
           console.log('something went wrong');
+          return 0;
       }
+    });
+  };
 
-      this.setState({ active: nextActive });
-    };
+  const handleCheckButtonClick = () => {
+    setGameOver(true);
+  };
 
-    window.removeEventListener('keydown', handleKeyDown);
-    window.addEventListener('keydown', handleKeyDown);
-  }
+  useEffect(() => {
+    if (!newGame) return;
+    init();
+  }, [newGame]);
 
-  render() {
-    const {
-      superheros,
-      chosen,
-      active,
-      gameOver,
-      loaded,
-      apiError
-    } = this.state;
+  useEffect(() => {
+    if (gameOver) return {};
+    document.addEventListener('keydown', handleKeyDown);
 
-    return (
-      <LanguageContext.Consumer>
-        {({ language }) => (
-          <SuperheroGameViewWithTranslation
-            language={language}
-            superheros={superheros}
-            gameState={{
-              chosen,
-              active,
-              gameOver,
-              loaded,
-              apiError,
-            }}
-            handlers={{
-              handleCardClick: this.handleCardClick,
-              replaceBrokenSuperhero: this.replaceBrokenSuperhero,
-              handleDragStart: this.handleDragStart,
-              handleDragOver: this.handleDragOver,
-              handleDrop: this.handleDrop,
-              handleCheckButtonClick: this.handleCheckButtonClick,
-              startNewGame: this.startNewGame,
-              toggleLanguage: this.toggleLanguage,
-            }}
-          />
-        )}
-      </LanguageContext.Consumer>
-    );
-  }
-}
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [gameOver]);
+
+  return (
+    <LanguageContext.Consumer>
+      {({ language }) => (
+        <SuperheroGameViewWithTranslation
+          language={language}
+          superheros={superheros}
+          gameState={{
+            chosen,
+            active,
+            gameOver,
+            loaded,
+            apiError,
+          }}
+          handlers={{
+            handleCardClick,
+            replaceBrokenSuperhero,
+            handleDragStart,
+            handleDragOver,
+            handleDrop,
+            handleCheckButtonClick,
+            startNewGame,
+          }}
+        />
+      )}
+    </LanguageContext.Consumer>
+  );
+};
 
 export default withLayout(SuperheroGame);

@@ -8,7 +8,7 @@ import withTranslation from './withTranslation';
 import TSuperhero from './TSuperhero';
 import './SuperheroGame.scss';
 
-function SuperheroGameView(props) {
+const SuperheroGameView = (props) => {
   const {
     language,
     getTranslation,
@@ -52,7 +52,6 @@ function SuperheroGameView(props) {
           gameOver: gameState.gameOver,
         }}
         handleButtonClick={handlers.handleCheckButtonClick}
-        replaceBrokenSuperhero={handlers.replaceBrokenSuperhero}
         startNewGame={handlers.startNewGame}
       />
     );
@@ -79,7 +78,7 @@ function SuperheroGameView(props) {
       )}
     </LanguageContext.Consumer>
   );
-}
+};
 
 SuperheroGameView.propTypes = {
   language: PropTypes.string,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { TStage } from './stages';
 
-export default function HomeView(props) {
+const HomeView = (props) => {
   const { announce, stages } = props;
   const projectInfoHeader = 'інформація про поточний етап';
   const topicHeader = 'Тема:';
@@ -15,7 +15,7 @@ export default function HomeView(props) {
       {'етап '}
       <strong>
         № 
-        {currentStageNumber}
+        {currentStageNumber + 1}
       </strong>
     </>
   );
@@ -42,7 +42,7 @@ export default function HomeView(props) {
       )}
     </ThemeContext.Consumer>
   );
-}
+};
 
 HomeView.propTypes = {
   announce: PropTypes.string,
@@ -53,3 +53,5 @@ HomeView.defaultProps = {
   announce: "Can't provide the announce",
   stages: [],
 };
+
+export default HomeView;

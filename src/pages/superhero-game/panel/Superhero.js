@@ -2,22 +2,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Superhero(props) {
+const Superhero = (props) => {
   const { data } = props;
   const { name } = data || 'classified';
-  const { alignment } = data.biography || 'classified';
-  const fullName = data.biography.full - name || 'classified';
-  const { gender } = data.appearance || 'classified';
-  const work = data.work.occupation || 'classified';
-  const { base } = data.work || 'classified';
+  const { alignment } = data?.biography || 'classified';
+  const fullName = data?.biography?.full - name || 'classified';
+  const { gender } = data?.appearance || 'classified';
+  const work = data?.work?.occupation || 'classified';
+  const { base } = data?.work || 'classified';
+  const { race } = data?.appearance || 'classified';
 
-  let { race } = data.appearance;
-  race = !race || race === 'null' ? 'classified' : race;
-
-  let height = data.appearance.height[1];
+  let height = data?.appearance?.height[1];
   height = !height || height[0] === '0' ? 'classified' : height;
 
-  let weight = data.appearance.weight[1];
+  let weight = data?.appearance.weight[1];
   weight = !weight || weight[0] === '0' ? 'classified' : weight;
 
   return (
@@ -31,10 +29,10 @@ export default function Superhero(props) {
       <p>Weight: {weight}</p>
       <p>Work: {work}</p>
       <p>Base: {base}</p>
-      <p className={alignment}>{alignment.toUpperCase()}</p>
+      <p className={alignment}>{alignment?.toUpperCase()}</p>
     </div>
   );
-}
+};
 
 Superhero.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
@@ -44,3 +42,5 @@ Superhero.propTypes = {
 Superhero.defaultProps = {
   data: {},
 };
+
+export default Superhero;

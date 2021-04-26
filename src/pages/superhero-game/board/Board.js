@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Card from './Card';
 import BoardView from './BoardView';
 
-export default function Board(props) {
+const Board = (props) => {
   const { superheros, gameState, handlers } = props;
 
   const getCardClassList = (index, gameStateVars) => {
@@ -55,7 +55,7 @@ export default function Board(props) {
   );
 
   return <BoardView cards={cards} />;
-}
+};
 
 Board.propTypes = {
   superheros: PropTypes.any,
@@ -68,3 +68,5 @@ Board.defaultProps = {
   gameState: {},
   handlers: {},
 };
+
+export default Board;

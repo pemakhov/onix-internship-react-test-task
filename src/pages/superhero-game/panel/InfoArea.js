@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withTranslation from '../withTranslation';
 
-function InfoArea(props) {
+const InfoArea = (props) => {
   const {
     language,
     getTranslation,
@@ -36,7 +36,7 @@ function InfoArea(props) {
   const content = getInfo(active, chosen, gameOver);
 
   return <h3 className="task">{content}</h3>;
-}
+};
 
 InfoArea.propTypes = {
   language: PropTypes.string,

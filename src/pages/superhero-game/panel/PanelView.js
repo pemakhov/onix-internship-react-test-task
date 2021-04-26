@@ -5,7 +5,7 @@ import Superhero from './Superhero';
 import ControlAreaWithTranslation from './ControlArea';
 import InfoAreaWithTranslation from './InfoArea';
 
-export default function PanelView(props) {
+const PanelView = (props) => {
   const {
     chosenSuperhero,
     language,
@@ -36,7 +36,7 @@ export default function PanelView(props) {
       {superheroInfo}
     </div>
   );
-}
+};
 
 PanelView.propTypes = {
   chosenSuperhero: PropTypes.any,
@@ -53,3 +53,5 @@ PanelView.defaultProps = {
   handleButtonClick: () => {},
   startNewGame: () => {},
 };
+
+export default PanelView;

@@ -4,7 +4,7 @@ import { ThemeContext } from '../../contexts/ThemeContext';
 import Nav from './Nav';
 import Button from '../../components/button/Button';
 
-export default function HeaderView(props) {
+const HeaderView = (props) => {
   const { handleButtonClick } = props;
   const logo = 'react.';
   const pageMainHeader = 'вивчаймо React';
@@ -29,7 +29,7 @@ export default function HeaderView(props) {
       )}
     </ThemeContext.Consumer>
   );
-}
+};
 
 HeaderView.propTypes = {
   handleButtonClick: PropTypes.func,
@@ -38,3 +38,5 @@ HeaderView.propTypes = {
 HeaderView.defaultProps = {
   handleButtonClick: () => {},
 };
+
+export default HeaderView;

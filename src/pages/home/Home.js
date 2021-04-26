@@ -1,18 +1,12 @@
 import React from 'react';
 import withLayout from '../../layout/withLayout';
-import Stages from './stages';
+import stages from './stages';
 import CurrentStageView from './HomeView';
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stages: Stages,
-      meetingDayNumber: 6,
-    };
-  }
+const Home = () => {
+  const MEETING_DAY = 6;
 
-  getDaysWord = (dayNumber) => {
+  const getDaysWord = (dayNumber) => {
     switch (true) {
       case dayNumber > 4:
         return 'днів';
@@ -25,17 +19,14 @@ class Home extends React.Component {
     }
   };
 
-  render() {
-    const { meetingDayNumber, stages } = this.state;
-    const daysToMeeting = meetingDayNumber - new Date().getDay();
-    const daysWordWithProperEnding = this.getDaysWord(daysToMeeting);
+  const daysToMeeting = MEETING_DAY - new Date().getDay();
+  const daysWordWithProperEnding = getDaysWord(daysToMeeting);
 
-    const announce = daysToMeeting === 0
-      ? 'Зустріч сьогодні'
-      : `До зустрічі ${daysToMeeting} ${daysWordWithProperEnding}`;
+  const announce = daysToMeeting === 0
+    ? 'Зустріч сьогодні'
+    : `До зустрічі ${daysToMeeting} ${daysWordWithProperEnding}`;
 
-    return <CurrentStageView announce={announce} stages={stages} />;
-  }
-}
+  return <CurrentStageView announce={announce} stages={stages} />;
+};
 
 export default withLayout(Home);

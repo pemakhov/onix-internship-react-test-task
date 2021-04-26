@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Board.scss';
 
-export default function BoardView(props) {
+const BoardView = (props) => {
   const { cards } = props;
   const row0 = cards.slice(0, 3);
   const row1 = cards.slice(3, 6);
@@ -15,7 +15,7 @@ export default function BoardView(props) {
       <div className="row">{row2}</div>
     </div>
   );
-}
+};
 
 BoardView.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
@@ -25,3 +25,5 @@ BoardView.propTypes = {
 BoardView.defaultProps = {
   cards: [],
 };
+
+export default BoardView;

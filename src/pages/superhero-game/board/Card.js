@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Card(props) {
+const Card = (props) => {
   const {
     classList,
     index,
@@ -25,16 +25,10 @@ export default function Card(props) {
       onDragOverCapture={handleDragOver}
       onDropCapture={handleDrop}
     >
-      <img
-        draggable="false"
-        onError={replaceBrokenSuperhero}
-        src={url}
-        alt="classified"
-        data-key={index}
-      />
+      <img draggable="false" onError={replaceBrokenSuperhero} src={url} alt="classified" data-key={index} />
     </div>
   );
-}
+};
 
 Card.propTypes = {
   classList: PropTypes.string,
@@ -57,3 +51,5 @@ Card.defaultProps = {
   replaceBrokenSuperhero: () => {},
   url: '',
 };
+
+export default Card;

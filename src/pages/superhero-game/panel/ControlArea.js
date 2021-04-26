@@ -5,7 +5,7 @@ import { ThemeContext } from '../../../contexts/ThemeContext';
 import Button from '../../../components/button/Button';
 import withTranslation from '../withTranslation';
 
-function ControlArea(props) {
+const ControlArea = (props) => {
   const {
     language,
     active,
@@ -42,7 +42,7 @@ function ControlArea(props) {
       )}
     </ThemeContext.Consumer>
   );
-}
+};
 
 ControlArea.propTypes = {
   language: PropTypes.string,

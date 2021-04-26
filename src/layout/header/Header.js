@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import HeaderView from './HeaderView';
 
-export default function Header(props) {
+const Header = (props) => {
   const { toggleTheme } = props;
   const alertMessage = 'Так, простий альорт. '
     + 'Кращого для цієї кнопки не придумав.';
@@ -17,7 +17,7 @@ export default function Header(props) {
       toggleTheme={toggleTheme}
     />
   );
-}
+};
 
 Header.propTypes = {
   toggleTheme: PropTypes.func,
@@ -26,3 +26,5 @@ Header.propTypes = {
 Header.defaultProps = {
   toggleTheme: () => {},
 };
+
+export default Header;
