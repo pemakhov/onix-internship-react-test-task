@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { TStage } from './stages';
@@ -10,37 +10,34 @@ const HomeView = (props) => {
   const taskHeader = 'Завдання:';
   const currentStageNumber = stages.length - 1;
   const currentStage = stages[currentStageNumber];
+  const { theme } = useContext(ThemeContext);
   const projectInfoArticleHeader = (
     <>
       {'етап '}
       <strong>
-        № 
+        №
         {currentStageNumber + 1}
       </strong>
     </>
   );
 
   return (
-    <ThemeContext.Consumer>
-      {(context) => (
-        <section>
-          <h2>{projectInfoHeader}</h2>
-          <div className="article">
-            <div className={`article__image ${context.theme}`}>
-              <p>{announce}</p>
-            </div>
-            <div className={`article__content ${context.theme}`}>
-              <h3>{projectInfoArticleHeader}</h3>
-              <div className="divider" />
-              <h4>{topicHeader}</h4>
-              <p>{currentStage.topic}</p>
-              <h4>{taskHeader}</h4>
-              {currentStage.task}
-            </div>
-          </div>
-        </section>
-      )}
-    </ThemeContext.Consumer>
+    <section>
+      <h2>{projectInfoHeader}</h2>
+      <div className="article">
+        <div className={`article__image ${theme}`}>
+          <p>{announce}</p>
+        </div>
+        <div className={`article__content ${theme}`}>
+          <h3>{projectInfoArticleHeader}</h3>
+          <div className="divider" />
+          <h4>{topicHeader}</h4>
+          <p>{currentStage.topic}</p>
+          <h4>{taskHeader}</h4>
+          {currentStage.task}
+        </div>
+      </div>
+    </section>
   );
 };
 

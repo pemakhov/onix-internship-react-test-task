@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeContext } from '../../../contexts/ThemeContext';
 
@@ -6,6 +6,7 @@ import Button from '../../../components/button/Button';
 import withTranslation from '../withTranslation';
 
 const ControlArea = (props) => {
+  const { theme } = useContext(ThemeContext);
   const {
     language,
     active,
@@ -35,13 +36,7 @@ const ControlArea = (props) => {
 
   const content = getContent(active, gameOver);
 
-  return (
-    <ThemeContext.Consumer>
-      {(context) => (
-        <div className={`control-area ${context.theme}`}>{content}</div>
-      )}
-    </ThemeContext.Consumer>
-  );
+  return <div className={`control-area ${theme}`}>{content}</div>;
 };
 
 ControlArea.propTypes = {

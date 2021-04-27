@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { LanguageContext } from '../../contexts/LanguageContext';
 import withLayout from '../../layout/withLayout';
 import CustomMath from '../../service/CustomMath';
@@ -13,6 +13,8 @@ const SuperheroGame = () => {
   const [loaded, setLoaded] = useState(false);
   const [apiError, setApiError] = useState(null);
   const [newGame, setNewGame] = useState(true);
+
+  const { language } = useContext(LanguageContext);
 
   const startNewGame = () => {
     setSuperheros([]);
@@ -204,30 +206,26 @@ const SuperheroGame = () => {
   }, [gameOver, active]);
 
   return (
-    <LanguageContext.Consumer>
-      {({ language }) => (
-        <SuperheroGameViewWithTranslation
-          language={language}
-          superheros={superheros}
-          gameState={{
-            chosen,
-            active,
-            gameOver,
-            loaded,
-            apiError,
-          }}
-          handlers={{
-            handleCardClick,
-            replaceBrokenSuperhero,
-            handleDragStart,
-            handleDragOver,
-            handleDrop,
-            handleCheckButtonClick,
-            startNewGame,
-          }}
-        />
-      )}
-    </LanguageContext.Consumer>
+    <SuperheroGameViewWithTranslation
+      language={language}
+      superheros={superheros}
+      gameState={{
+        chosen,
+        active,
+        gameOver,
+        loaded,
+        apiError,
+      }}
+      handlers={{
+        handleCardClick,
+        replaceBrokenSuperhero,
+        handleDragStart,
+        handleDragOver,
+        handleDrop,
+        handleCheckButtonClick,
+        startNewGame,
+      }}
+    />
   );
 };
 

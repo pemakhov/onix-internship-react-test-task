@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ThemeContext } from '../contexts/ThemeContext';
 import Header from './header/Header';
 import Footer from './footer/Footer';
 
 const withLayout = (WrappedComponent) => {
-  return () => (
-    <ThemeContext.Consumer>
-      {(context) => (
-        <div id="canvas" className={context.theme}>
-          <div className={`container ${context.theme}`}>
-            <Header />
-            <main className={context.theme}>
-              <WrappedComponent />
-            </main>
-            <Footer />
-          </div>
+  return () => {
+    const { theme } = useContext(ThemeContext);
+
+    return (
+      <div id="canvas" className={theme}>
+        <div className={`container ${theme}`}>
+          <Header />
+          <main className={theme}>
+            <WrappedComponent />
+          </main>
+          <Footer />
         </div>
-      )}
-    </ThemeContext.Consumer>
-  );
+      </div>
+    );
+  };
 };
 
 export default withLayout;

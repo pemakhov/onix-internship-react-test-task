@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { LanguageContext } from '../../contexts/LanguageContext';
 import Board from './board/Board';
@@ -9,6 +9,7 @@ import TSuperhero from './TSuperhero';
 import './SuperheroGame.scss';
 
 const SuperheroGameView = (props) => {
+  const { toggleLanguage } = useContext(LanguageContext);
   const {
     language,
     getTranslation,
@@ -62,21 +63,17 @@ const SuperheroGameView = (props) => {
   }
 
   return (
-    <LanguageContext.Consumer>
-      {({ toggleLanguage }) => (
-        <section>
-          <h2>
-            <Button value={language} onClick={toggleLanguage} />
-          </h2>
-          <h2>{gameHeader}</h2>
-          {errorMessage}
-          <div id="superhero-game">
-            {board}
-            {panel}
-          </div>
-        </section>
-      )}
-    </LanguageContext.Consumer>
+    <section>
+      <h2>
+        <Button value={language} onClick={toggleLanguage} />
+      </h2>
+      <h2>{gameHeader}</h2>
+      {errorMessage}
+      <div id="superhero-game">
+        {board}
+        {panel}
+      </div>
+    </section>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ThemeContext } from '../../contexts/ThemeContext';
 
 const Footer = () => {
@@ -11,35 +11,32 @@ const Footer = () => {
   const copyrightYear = '2021';
   const copyrightInfo = 'права ніким не захищені';
   const anchorText = 'Anchor';
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <ThemeContext.Consumer>
-      {(context) => (
-        <footer>
-          <a id="links" href="links" className="hidden-anchor">
-            {anchorText}
-          </a>
-          <div className="info">
-            <h2>{footerHeader}</h2>
-            <div className="info__container">
-              <div>{authorName}</div>
-              <div>
-                <a href={authorGithubLink}>{authorGithubLinkCaption}</a>
-              </div>
-              <div>
-                <a href={templateLink}>{templateLinkCaption}</a>
-              </div>
-            </div>
+    <footer>
+      <a id="links" href="links" className="hidden-anchor">
+        {anchorText}
+      </a>
+      <div className="info">
+        <h2>{footerHeader}</h2>
+        <div className="info__container">
+          <div>{authorName}</div>
+          <div>
+            <a href={authorGithubLink}>{authorGithubLinkCaption}</a>
           </div>
-          <div className={`copyright ${context.theme}`}>
-            <p>
-              <strong>{copyrightYear}</strong>
-            </p>
-            <p>{copyrightInfo}</p>
+          <div>
+            <a href={templateLink}>{templateLinkCaption}</a>
           </div>
-        </footer>
-      )}
-    </ThemeContext.Consumer>
+        </div>
+      </div>
+      <div className={`copyright ${theme}`}>
+        <p>
+          <strong>{copyrightYear}</strong>
+        </p>
+        <p>{copyrightInfo}</p>
+      </div>
+    </footer>
   );
 };
 

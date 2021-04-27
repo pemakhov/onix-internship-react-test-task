@@ -1,5 +1,5 @@
-# Lessson 10
+# Lessson 12
 
-## React basics. Context
+## React basics. Hooks
 
-Implement color themes
+Rewrite app using react hooks and stateless components.
