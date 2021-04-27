@@ -157,30 +157,34 @@ const SuperheroGame = () => {
 
     if (gameOver) return;
 
-    setActive((previous) => {
-      if (previous === null) {
-        return 0;
-      }
+    if (active === null) {
+      setActive(0);
+      return;
+    }
 
-      switch (event.key) {
-        case 'ArrowLeft':
-          return ((previous + 3 - 1) % 3) + Math.floor(previous / 3) * 3;
+    let next = 0;
+    switch (event.key) {
+      case 'ArrowLeft':
+        next = ((active + 3 - 1) % 3) + Math.floor(active / 3) * 3;
+        break;
 
-        case 'ArrowRight':
-          return ((previous + 3 + 1) % 3) + Math.floor(previous / 3) * 3;
+      case 'ArrowRight':
+        next = ((active + 3 + 1) % 3) + Math.floor(active / 3) * 3;
+        break;
 
-        case 'ArrowUp':
-          return (previous + SUPERHEROS_TO_SHOW - 3) % SUPERHEROS_TO_SHOW;
+      case 'ArrowUp':
+        next = (active + SUPERHEROS_TO_SHOW - 3) % SUPERHEROS_TO_SHOW;
+        break;
 
-        case 'ArrowDown':
-          return (previous + 3) % SUPERHEROS_TO_SHOW;
+      case 'ArrowDown':
+        next = (active + 3) % SUPERHEROS_TO_SHOW;
+        break;
 
-        default:
-          // eslint-disable-next-line no-console
-          console.log('something went wrong');
-          return 0;
-      }
-    });
+      default:
+        // eslint-disable-next-line no-console
+        console.log('something went wrong');
+    }
+    setActive(next);
   };
 
   const handleCheckButtonClick = () => {
@@ -197,7 +201,7 @@ const SuperheroGame = () => {
     document.addEventListener('keydown', handleKeyDown);
 
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [gameOver]);
+  }, [gameOver, active]);
 
   return (
     <LanguageContext.Consumer>
