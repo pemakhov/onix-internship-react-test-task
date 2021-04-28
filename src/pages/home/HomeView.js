@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import { ThemeContext } from '../../contexts';
 import { TStage } from './stages';
 
 const HomeView = (props) => {
