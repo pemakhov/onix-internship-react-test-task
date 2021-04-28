@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from '../../contexts';
+import ThemeContext from '../../contexts/theme';
 
 const Footer = () => {
   const footerHeader = 'Автор та посилання';

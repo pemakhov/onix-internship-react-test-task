@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { LanguageContext } from '../../contexts';
+import LanguageContext from '../../contexts/language';
 import withLayout from '../../layout/withLayout';
 import CustomMath from '../../service/CustomMath';
 import SuperheroGameViewWithTranslation from './SuperheroGameView';

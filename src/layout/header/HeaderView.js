@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeContext } from '../../contexts';
+import ThemeContext from '../../contexts/theme';
 import Nav from './Nav';
 import Button from '../../components/button/Button';
 

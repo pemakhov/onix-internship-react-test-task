@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { ThemeContext } from './contexts';
-import { themes } from './constants';
-import { LanguageContext } from './contexts';
-import { languages } from './constants';
+import ThemeContext from './contexts/theme';
+import themes from './constants/theme';
+import LanguageContext from './contexts/language';
+import languages from './constants/language';
 import Home from './pages/home/Home';
 import SuperheroGame from './pages/superhero-game/SuperheroGame';
 import Biography from './pages/biography/Biography';

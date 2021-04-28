@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { LanguageContext } from '../../contexts';
+import LanguageContext from '../../contexts/language';
 import Board from './board/Board';
 import Panel from './panel/Panel';
 import Button from '../../components/button/Button';
