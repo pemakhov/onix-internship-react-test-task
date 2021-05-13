@@ -1,15 +1,17 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import ThemeContext from '../../contexts/theme';
 
 const Footer = () => {
-  const footerHeader = 'Автор та посилання';
-  const authorName = 'Сергій Пемахов';
+  const { t } = useTranslation();
+  const footerHeader = t('footer.footerHeader');
+  const authorName = t('footer.authorName');
   const authorGithubLink = 'https://github.com/pemakhov';
-  const authorGithubLinkCaption = 'Мій гітхаб аккаунт';
+  const authorGithubLinkCaption = t('footer.authorGithubLinkCaption'); 
   const templateLink = 'https://dribbble.com/shots/3263006-Clemo-PSD-Template';
-  const templateLinkCaption = 'Оригінал дизайну';
+  const templateLinkCaption = t('footer.templateLinkCaption');
   const copyrightYear = '2021';
-  const copyrightInfo = 'права ніким не захищені';
+  const copyrightInfo = t('footer.copyrightInfo');
   const anchorText = 'Anchor';
   const { theme } = useContext(ThemeContext);
 

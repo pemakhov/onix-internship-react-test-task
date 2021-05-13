@@ -1,24 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import LanguageContext from '../../contexts/language';
 import Board from './board/Board';
 import Panel from './panel/Panel';
-import Button from '../../components/button/Button';
-import withTranslation from './withTranslation';
 import TSuperhero from './TSuperhero';
 import './SuperheroGame.scss';
 
 const SuperheroGameView = (props) => {
-  const { toggleLanguage } = useContext(LanguageContext);
+  const [t] = useTranslation();
+
   const {
-    language,
-    getTranslation,
     superheros,
     gameState,
     handlers
   } = props;
 
-  const { downloadError = '', gameHeader = '' } = getTranslation(language, 'SuperheroGameView');
+  const downloadError = t('superheroGame.SuperheroGameView.downloadError');
+  const gameHeader = t('superheroGame.SuperheroGameView.gameHeader');
 
   let board = null;
   let panel = null;
@@ -45,7 +43,6 @@ const SuperheroGameView = (props) => {
 
     panel = (
       <Panel
-        language={language}
         superheros={superheros}
         gameState={{
           chosen: gameState.chosen,
@@ -64,9 +61,6 @@ const SuperheroGameView = (props) => {
 
   return (
     <section>
-      <h2>
-        <Button value={language} onClick={toggleLanguage} />
-      </h2>
       <h2>{gameHeader}</h2>
       {errorMessage}
       <div id="superhero-game">
@@ -78,9 +72,7 @@ const SuperheroGameView = (props) => {
 };
 
 SuperheroGameView.propTypes = {
-  language: PropTypes.string,
   superheros: PropTypes.arrayOf(TSuperhero),
-  getTranslation: PropTypes.func,
   gameState: PropTypes.shape({
     chosen: PropTypes.number,
     active: PropTypes.number,
@@ -102,11 +94,9 @@ SuperheroGameView.propTypes = {
 };
 
 SuperheroGameView.defaultProps = {
-  language: '',
   superheros: [],
-  getTranslation: () => [],
   gameState: {},
   handlers: {},
 };
 
-export default withTranslation(SuperheroGameView);
+export default SuperheroGameView;

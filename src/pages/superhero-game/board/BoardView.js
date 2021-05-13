@@ -18,8 +18,7 @@ const BoardView = (props) => {
 };
 
 BoardView.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  cards: PropTypes.any,
+  cards: PropTypes.arrayOf(PropTypes.elementType),
 };
 
 BoardView.defaultProps = {

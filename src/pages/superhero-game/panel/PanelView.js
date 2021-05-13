@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Superhero from './Superhero';
-import ControlAreaWithTranslation from './ControlArea';
-import InfoAreaWithTranslation from './InfoArea';
+import ControlArea from './ControlArea';
+import InfoArea from './InfoArea';
 
 const PanelView = (props) => {
   const {
@@ -18,14 +18,14 @@ const PanelView = (props) => {
 
   return (
     <div className="game-panel">
-      <InfoAreaWithTranslation
+      <InfoArea
         language={language}
         active={active}
         chosen={chosen}
         gameOver={gameOver}
         chosenSuperhero={chosenSuperhero}
       />
-      <ControlAreaWithTranslation
+      <ControlArea
         language={language}
         active={active}
         chosen={chosen}

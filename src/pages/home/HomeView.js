@@ -1,22 +1,25 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import ThemeContext from '../../contexts/theme';
-import { TStage } from './stages';
 
 const HomeView = (props) => {
-  const { announce, stages } = props;
-  const projectInfoHeader = 'інформація про поточний етап';
-  const topicHeader = 'Тема:';
-  const taskHeader = 'Завдання:';
-  const currentStageNumber = stages.length - 1;
-  const currentStage = stages[currentStageNumber];
+  const [t] = useTranslation();
+  const { daysToMeeting } = props;
+  const daysToMeetingLabel = t('home.daysToMeetingLabel');
+  const projectInfoHeader = t('home.projectInfoHeader');
+  const topicHeader = t('home.topicHeader');
+  const taskHeader = t('home.taskHeader');
+  const stageNumberLabel = t('home.stageNumberLabel');
+  const currentStageNumber = t('home.currentStage.stageNumber');
+  const topic = t('home.currentStage.topic');
+  const task = t('home.currentStage.task');
   const { theme } = useContext(ThemeContext);
   const projectInfoArticleHeader = (
     <>
-      {'етап '}
+      {stageNumberLabel}
       <strong>
-        №
-        {currentStageNumber + 1}
+        {currentStageNumber}
       </strong>
     </>
   );
@@ -26,15 +29,18 @@ const HomeView = (props) => {
       <h2>{projectInfoHeader}</h2>
       <div className="article">
         <div className={`article__image ${theme}`}>
-          <p>{announce}</p>
+          <p>
+            {daysToMeetingLabel}
+            {daysToMeeting}
+          </p>
         </div>
         <div className={`article__content ${theme}`}>
           <h3>{projectInfoArticleHeader}</h3>
           <div className="divider" />
           <h4>{topicHeader}</h4>
-          <p>{currentStage.topic}</p>
+          <p>{topic}</p>
           <h4>{taskHeader}</h4>
-          {currentStage.task}
+          {task}
         </div>
       </div>
     </section>
@@ -42,13 +48,11 @@ const HomeView = (props) => {
 };
 
 HomeView.propTypes = {
-  announce: PropTypes.string,
-  stages: PropTypes.arrayOf(TStage),
+  daysToMeeting: PropTypes.number,
 };
 
 HomeView.defaultProps = {
-  announce: "Can't provide the announce",
-  stages: [],
+  daysToMeeting: 0,
 };
 
 export default HomeView;

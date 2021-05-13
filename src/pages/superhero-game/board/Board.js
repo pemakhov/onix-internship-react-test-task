@@ -48,10 +48,7 @@ const Board = (props) => {
 
   const images = superheros.map((superhero) => superhero.image.url);
   const cards = images.map(
-    (image, index) =>
-      // eslint-disable-next-line implicit-arrow-linebreak
-      renderCard(image, index, gameState, handlers)
-    // eslint-disable-next-line function-paren-newline
+    (image, index) => renderCard(image, index, gameState, handlers)
   );
 
   return <BoardView cards={cards} />;

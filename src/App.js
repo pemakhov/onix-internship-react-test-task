@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import i18n from './i18n';
 import ThemeContext from './contexts/theme';
 import themes from './constants/theme';
 import LanguageContext from './contexts/language';
@@ -11,7 +12,6 @@ import './App.scss';
 
 const App = () => {
   const [theme, setTheme] = useState(themes.light);
-  const [language, setLanguage] = useState(languages.ua);
 
   const toggleTheme = () => {
     const getTheme = (current, allThemes) => {
@@ -28,12 +28,12 @@ const App = () => {
       return current === en ? ua : en;
     };
 
-    setLanguage((prev) => getLanguage(prev, languages));
+    i18n.changeLanguage(getLanguage(i18n.language, languages));
   };
 
   return (
     <>
-      <LanguageContext.Provider value={{ language, toggleLanguage }}>
+      <LanguageContext.Provider value={{ toggleLanguage }}>
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
           <Router>
             <Switch>

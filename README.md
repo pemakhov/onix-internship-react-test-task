@@ -1,5 +1,7 @@
-# Lessson 12
+# Lessson 13
 
-## React basics. Hooks
+## React basics. Internationalization
 
-Rewrite app using react hooks and stateless components.
+- [x] Implement internationalization
+- [ ] Detect user language
+- [ ] Store language in the local storage

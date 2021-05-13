@@ -1,15 +1,17 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import ThemeContext from '../../contexts/theme';
 import Nav from './Nav';
 import Button from '../../components/button/Button';
 
 const HeaderView = (props) => {
+  const { t } = useTranslation();
   const { handleButtonClick } = props;
   const logo = 'react.';
-  const pageMainHeader = 'вивчаймо React';
-  const pageSecondaryHeader = 'на інтернатурі в ONIX';
-  const buttonCaption = 'в дизайні була кнопка';
+  const pageMainHeader = t('header.pageMainHeader');
+  const pageSecondaryHeader = t('header.pageSecondaryHeader');
+  const buttonCaption = t('header.buttonCaption');
   const { theme } = useContext(ThemeContext);
 
   return (

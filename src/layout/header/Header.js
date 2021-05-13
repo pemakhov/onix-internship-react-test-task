@@ -1,11 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import HeaderView from './HeaderView';
 
 const Header = (props) => {
+  const { t } = useTranslation();
   const { toggleTheme } = props;
-  const alertMessage = 'Так, простий альорт. '
-    + 'Кращого для цієї кнопки не придумав.';
+  const alertMessage = t('header.alertMessage');
   const handleButtonClick = (message) => {
     // eslint-disable-next-line no-alert
     alert(message);
