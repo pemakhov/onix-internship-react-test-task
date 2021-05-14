@@ -22,13 +22,20 @@ const App = () => {
     setTheme((prev) => getTheme(prev, themes));
   };
 
+  const storeLanguage = (language) => {
+    localStorage.setItem('language', language);
+  };
+
   const toggleLanguage = () => {
     const getLanguage = (current, allLanguages) => {
       const { en, ua } = allLanguages;
       return current === en ? ua : en;
     };
 
-    i18n.changeLanguage(getLanguage(i18n.language, languages));
+    const nextLanguage = getLanguage(i18n.language, languages);
+
+    storeLanguage(nextLanguage);
+    i18n.changeLanguage(nextLanguage);
   };
 
   return (

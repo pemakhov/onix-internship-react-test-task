@@ -3,5 +3,5 @@
 ## React basics. Internationalization
 
 - [x] Implement internationalization
-- [ ] Detect user language
-- [ ] Store language in the local storage
+- [x] Detect user language
+- [x] Store language in the local storage
