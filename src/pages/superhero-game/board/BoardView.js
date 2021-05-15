@@ -18,11 +18,11 @@ const BoardView = (props) => {
 };
 
 BoardView.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.elementType),
+  cards: PropTypes.arrayOf(PropTypes.element),
 };
 
 BoardView.defaultProps = {
-  cards: [],
+  cards: [{}],
 };
 
 export default BoardView;
