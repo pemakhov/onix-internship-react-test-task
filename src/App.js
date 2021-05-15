@@ -11,7 +11,8 @@ import Biography from './pages/biography/Biography';
 import './App.scss';
 
 const App = () => {
-  const [theme, setTheme] = useState(themes.light);
+  const defaultTheme = localStorage.getItem('theme') || themes.dark;
+  const [theme, setTheme] = useState(defaultTheme);
 
   const toggleTheme = () => {
     const getTheme = (current, allThemes) => {
@@ -19,7 +20,11 @@ const App = () => {
       return current === dark ? light : dark;
     };
 
-    setTheme((prev) => getTheme(prev, themes));
+    setTheme((prev) => {
+      const nextTheme = getTheme(prev, themes);
+      localStorage.setItem('theme', nextTheme);
+      return nextTheme;
+    });
   };
 
   const storeLanguage = (language) => {
