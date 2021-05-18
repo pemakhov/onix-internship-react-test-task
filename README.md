@@ -1,7 +1,7 @@
-# Lessson 13
+# Lesson 14
 
-## React basics. Internationalization
+## Redux
 
-- [x] Implement internationalization
-- [x] Detect user language
-- [x] Store language in the local storage
+- [x] Store data from a request into Redux
+- [x] Add button for refreshing the data
+- [x] Add loader indicator. Keep old data until new data is loaded

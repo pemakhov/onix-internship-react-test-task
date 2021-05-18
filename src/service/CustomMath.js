@@ -13,9 +13,9 @@ function getArrayOfRandomNumbersInRange(params) {
   return [...numbers];
 }
 
-const CustomMath = {
+const customMath = {
   getRandomNumberInRange,
   getArrayOfRandomNumbersInRange,
 };
 
-export default CustomMath;
+export default customMath;
