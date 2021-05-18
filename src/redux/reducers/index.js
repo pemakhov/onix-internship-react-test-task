@@ -1,16 +1,8 @@
-import { LOAD_SUPERHEROS } from '../../constants/action-types';
+import { combineReducers } from 'redux';
+import superheros from './superheros';
+import loaded from './loaded';
 
-const initialState = {
-  superheros: [],
-};
-
-const rootReducer = (state = initialState, action) => {
-  if (action.type === LOAD_SUPERHEROS) {
-    const newState = { ...state };
-    newState.superheros = action.payload;
-    return newState;
-  }
-  return state;
-};
-
-export default rootReducer;
+export default combineReducers({
+  superheros,
+  loaded,
+});

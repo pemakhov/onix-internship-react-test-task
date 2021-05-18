@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import loadSuperheros from '../../redux/actions';
+import { useSelector, useDispatch } from 'react-redux';
+import setLoaded from '../../redux/actions/set-loaded';
+import loadSuperheros from '../../redux/actions/load-superheros';
 import withLayout from '../../layout/withLayout';
 import CustomMath from '../../service/CustomMath';
 import SuperherosView from './SuperherosView';
 import superheroConstants from '../../constants/superhero-constants';
 
 const SuperheroGame = () => {
-  const [loaded, setLoaded] = useState(false);
   const [apiError, setApiError] = useState(null);
+  const loaded = useSelector((state) => state.loaded);
   const dispatch = useDispatch();
 
   const {
@@ -48,7 +49,7 @@ const SuperheroGame = () => {
 
       if (failures.length > 2) throw new Error('Failed to load too many superheros');
 
-      setLoaded(() => true);
+      dispatch(setLoaded(true));
       dispatch(loadSuperheros(heroes));
     } catch (error) {
       setApiError(() => error.message);
@@ -56,7 +57,7 @@ const SuperheroGame = () => {
   };
 
   const handleRefresh = () => {
-    setLoaded(() => false);
+    dispatch(setLoaded(false));
   };
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const SuperheroGame = () => {
     init();
   });
 
-  return <SuperherosView loaded={loaded} apiError={apiError} handleRefresh={handleRefresh} />;
+  return <SuperherosView apiError={apiError} handleRefresh={handleRefresh} />;
 };
 
 export default withLayout(SuperheroGame);

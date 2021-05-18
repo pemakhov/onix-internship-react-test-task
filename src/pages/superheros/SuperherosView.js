@@ -6,11 +6,11 @@ import Button from '../../components/button/Button';
 
 const SuperherosView = (props) => {
   const {
-    loaded,
     apiError,
     handleRefresh,
   } = props;
 
+  const loaded = useSelector((state) => state.loaded);
   const superheros = useSelector((state) => state.superheros);
   const headerText = 'The list of superheros';
   const errorMessage = apiError && 'Failed to load data';
@@ -54,7 +54,6 @@ const SuperherosView = (props) => {
 };
 
 SuperherosView.propTypes = {
-  loaded: PropTypes.bool.isRequired,
   apiError: PropTypes.string,
   handleRefresh: PropTypes.func.isRequired,
 };
