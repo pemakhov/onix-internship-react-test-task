@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import Superhero from './Superhero';
 import Button from '../../components/button/Button';
+import TSuperhero from './TSuperhero';
 
 const SuperherosView = (props) => {
   const {
@@ -10,8 +11,7 @@ const SuperherosView = (props) => {
     handleRefresh,
   } = props;
 
-  const loaded = useSelector((state) => state.loaded);
-  const superheros = useSelector((state) => state.superheros);
+  const { loaded, superheros } = props;
   const headerText = 'The list of superheros';
   const errorMessage = apiError && 'Failed to load data';
   const buttonValue = loaded ? 'Refresh' : '...loading';
@@ -38,7 +38,7 @@ const SuperherosView = (props) => {
           <thead>
             <tr>
               {columnNames.map((name) => (
-                <td key={name}>{name}</td>
+                <th key={name}>{name}</th>
               ))}
             </tr>
           </thead>
@@ -54,6 +54,8 @@ const SuperherosView = (props) => {
 };
 
 SuperherosView.propTypes = {
+  loaded: PropTypes.bool.isRequired,
+  superheros: PropTypes.arrayOf(PropTypes.oneOfType([TSuperhero])).isRequired,
   apiError: PropTypes.string,
   handleRefresh: PropTypes.func.isRequired,
 };
@@ -62,4 +64,9 @@ SuperherosView.defaultProps = {
   apiError: null,
 };
 
-export default SuperherosView;
+const mapStateToProps = (state) => {
+  const { loaded, superheros } = state;
+  return { loaded, superheros };
+};
+
+export default connect(mapStateToProps)(SuperherosView);

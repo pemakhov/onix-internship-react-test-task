@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import setLoaded from '../../redux/actions/set-loaded';
 import loadSuperheros from '../../redux/actions/load-superheros';
-import withLayout from '../../layout/withLayout';
+import withLayout from '../../hoc/withLayout';
 import CustomMath from '../../service/CustomMath';
 import SuperherosView from './SuperherosView';
 import superheroConstants from '../../constants/superhero-constants';
 
-const SuperheroGame = () => {
+const Superheros = (props) => {
   const [apiError, setApiError] = useState(null);
-  const loaded = useSelector((state) => state.loaded);
-  const dispatch = useDispatch();
+  const { loaded, setLoadedAction, loadSuperherosAction } = props;
 
   const {
     URL,
@@ -21,8 +21,7 @@ const SuperheroGame = () => {
 
   const getOneSuperhero = async (url) => {
     const response = await fetch(url);
-    const superhero = await response.json();
-    return superhero;
+    return response.json();
   };
 
   const getSuperherosByIdList = async (idList) => {
@@ -49,15 +48,15 @@ const SuperheroGame = () => {
 
       if (failures.length > 2) throw new Error('Failed to load too many superheros');
 
-      dispatch(setLoaded(true));
-      dispatch(loadSuperheros(heroes));
+      setLoadedAction(true);
+      loadSuperherosAction(heroes);
     } catch (error) {
       setApiError(() => error.message);
     }
   };
 
   const handleRefresh = () => {
-    dispatch(setLoaded(false));
+    setLoadedAction(false);
   };
 
   useEffect(() => {
@@ -70,4 +69,20 @@ const SuperheroGame = () => {
   return <SuperherosView apiError={apiError} handleRefresh={handleRefresh} />;
 };
 
-export default withLayout(SuperheroGame);
+Superheros.propTypes = {
+  loaded: PropTypes.bool.isRequired,
+  setLoadedAction: PropTypes.func.isRequired,
+  loadSuperherosAction: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const { loaded } = state;
+  return { loaded };
+};
+
+const mapDispatchToProps = {
+  setLoadedAction: setLoaded,
+  loadSuperherosAction: loadSuperheros,
+};
+
+export default withLayout(connect(mapStateToProps, mapDispatchToProps)(Superheros));

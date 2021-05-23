@@ -1,5 +1,4 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
 import TSuperhero from './TSuperhero';
 
 const Superhero = (props) => {
@@ -24,13 +23,23 @@ const Superhero = (props) => {
   const { alignment } = biography;
   const { gender } = appearance;
 
-  const dataSet = [name, intelligence, strength, speed, durability, power, combat, alignment, gender];
+  const dataSet = {
+    name,
+    intelligence,
+    strength,
+    speed,
+    durability,
+    power,
+    combat,
+    alignment,
+    gender
+  };
 
   const itemIsNotAvailable = (item) => ['null', '-', undefined, null].includes(item);
 
   return (
-    <tr key={name}>
-      {dataSet.map((item) => <td key={nanoid()}>{itemIsNotAvailable(item) ? 'n/a' : item}</td>)}
+    <tr>
+      {Object.entries(dataSet).map((item) => <td key={item[0]}>{itemIsNotAvailable(item[1]) ? 'n/a' : item[1]}</td>)}
     </tr>
   );
 };
