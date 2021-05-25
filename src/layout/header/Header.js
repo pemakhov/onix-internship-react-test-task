@@ -1,9 +1,10 @@
 import React from 'react';
 
 const Header = () => {
+  const mainHeader = 'Lesson 15';
   return (
     <header className="container">
-      <h1>Lesson 14</h1>
+      <h1>{mainHeader}</h1>
     </header>
   );
 };

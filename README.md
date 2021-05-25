@@ -1,7 +1,5 @@
-# Lesson 14
+# Lesson 15
 
-## Redux
+## Redux-thunk
 
-- [x] Store data from a request into Redux
-- [x] Add button for refreshing the data
-- [x] Add loader indicator. Keep old data until new data is loaded
+- [x] Use redux-thunk for an api-request

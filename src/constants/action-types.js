@@ -1,3 +1,5 @@
-export const LOAD_SUPERHEROS = 'LOAD_SUPERHEROS';
+export const GET_SUPERHEROS = 'GET_SUPERHEROS';
+
+export const SET_SUPERHEROS = 'SET_SUPERHEROS';
 
 export const SET_LOADED = 'SET_LOADED';

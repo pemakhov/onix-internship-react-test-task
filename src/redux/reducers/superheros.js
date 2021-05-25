@@ -1,7 +1,7 @@
-import { LOAD_SUPERHEROS } from '../../constants/action-types';
+import { SET_SUPERHEROS } from '../../constants/action-types';
 
 const superheros = (state = [], action) => {
-  if (action.type === LOAD_SUPERHEROS) {
+  if (action.type === SET_SUPERHEROS) {
     return action.payload;
   }
   return state;
